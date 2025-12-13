@@ -25,20 +25,25 @@ $(document).ready(function() {
             products.forEach(function(product){
                 $(".products").append(`
                     <div class="product">
+                    <div class="image">
                         <img src="${product.image}?v=${Math.random()}" />
+                        </div>
+                        <div class="product_info">
                         <p class="name">${product.name}</p>
-                        <p class="price">${product.price}</p>
-                        <p class="id">${product.id}</p>
-                        <p class="category">${product.category}</p>
-                        <p class="description">${product.description}</p>
-                        <p class="stock">${product.stock}</p>
+                        <p class="price">price : ${product.price}</p>
+                        <p class="id">id : ${product.id}</p>
+                        <p class="category">category : ${product.category}</p>
+                        <p class="description">description : ${product.description}</p>
+                        <p class="stock">in Stock : ${product.stock}</p>
                         <p class="sku">${product.sku}</p>
+                        </div>
                     </div>
                 `);
             });
 
             showPage(currentPage);
         });
+            $(".dropdown_menu").hide();
     }
 
     // Category buttons
