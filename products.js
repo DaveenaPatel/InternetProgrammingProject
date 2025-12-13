@@ -47,6 +47,7 @@ $(document).ready(function() {
     }
 
     // Category buttons
+    
     $("#automotive_list").click(() => loadCategory("Automotive"));
     $("#clothing_list").click(() => loadCategory("Clothing"));
     $("#beautyAndPersonalCare_list").click(() => loadCategory("Beauty & Personal Care"));
