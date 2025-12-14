@@ -88,31 +88,39 @@ $(".checkout").click(function(){
     window.setCookie = setCookie;
     window.getCookie = getCookie;
 
-    //Login
-    $("#loginForm").submit(function (e) {
-        e.preventDefault();
+//Login
+$("#loginForm").submit(function (e) {
+    e.preventDefault();
 
-        fetch("https://reqres.in/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: $("#email").val(),
-                password: $("#password").val()
-            })
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Login failed");
-            return response.json();
-        })
-        .then(data => {
-            setCookie("token", data.token, 1);
+    const email = $("#email").val().trim();
+    const password = $("#password").val().trim();
+
+    $.ajax({
+        method: "POST",
+        url: "https://reqres.in/api/login",
+        headers: {
+            "x-api-key": "reqres_ae34759172c341bca30434782cd1c9c6"
+        },
+        data: {
+            email: email,
+            password: password
+        },
+        success: function (response) {
+            // Save token
+            document.cookie = "token=" + response.token + "; path=/";
+
+            // Redirect
             window.location.href = "website.html";
-        })
-        .catch(err => {
-            console.error(err);
-            $("#loginError").text("Invalid information.");
-        });
+        },
+        error: function () {
+            $("#loginError").text("Invalid email or password");
+        }
     });
+});
+
+
+
+
 
     //Register
     $("#registerForm").submit(function (e) {
