@@ -122,27 +122,43 @@ $("#loginForm").submit(function (e) {
 
 
 
-    //Register
-    $("#registerForm").submit(function (e) {
-        e.preventDefault();
+//Register
+$("#registerForm").submit(function (e) {
+    e.preventDefault();
 
-        $.ajax({
-            url: "https://reqres.in/api/register",
-            method: "POST",
-            data: {
-                email: $("#reg_email").val(),
-                password: $("#reg_password").val()
-            },
-            success: function () {
-                $("#registerMsg").css("color", "green")
-                    .text("Registration successful! You can now login.");
-            },
-            error: function () {
-                $("#registerMsg").css("color", "red")
-                    .text("Registration failed.");
-            }
-        });
+    const email = $("#reg_email").val().trim();
+    const password = $("#reg_password").val().trim();
+
+    $.ajax({
+        method: "POST",
+        url: "https://reqres.in/api/register",
+        headers: {
+            "x-api-key": "demo-key"
+        },
+        data: {
+            email: email,
+            password: password
+        },
+        success: function (response) {
+            // Save token
+            document.cookie = "token=" + response.token + "; path=/";
+
+            // Success message
+            $("#registerMsg")
+                .css("color", "green")
+                .text("Registration successful! You can now log in.");
+
+            // Optional redirect
+            // window.location.href = "loginpage.html";
+        },
+        error: function () {
+            $("#registerMsg")
+                .css("color", "red")
+                .text("Registration failed. Invalid information.");
+        }
     });
+});
+
 
     //Dark mode
     if (getCookie("darkMode") === "on") {
