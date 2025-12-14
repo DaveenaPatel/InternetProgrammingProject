@@ -11,102 +11,105 @@
 </head>
 
 <body>
- 
 
+    <!-- Shopping Cart -->
     <div class="cartTab">
         <h1>Shopping Cart</h1>
-        <div class="listCart">
-
-        </div>
+        <div class="listCart"></div>
         <div class="btn">
             <button class="close">Close</button>
             <button class="checkout">Checkout</button>
         </div>
     </div>
 
-    <!-- *********************************   Main menu ***************************-->
-
-
-
+    <!-- Main Menu -->
     <div class="Main_Menu">
-           <header>
+        <header>
+            <div class="container">Website Name</div>
+            <div class="icon-cart">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd"
+                        d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span>0</span>
+            </div>
+        </header>
 
-        <div class="container">Website Name</div>
-        <div class="icon-cart">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
-            </svg>
-            <span>0</span>
+        <div class="leftSideMainMenu">
+            <!-- Hamburger Menu -->
+            <div class="Hamburger_Menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
 
-        </div>
+            <!-- Main Menu Items -->
+            <ul>
+                <li id="home">Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
 
-    </header>
-        <input id="searchInput"type="search" name="query" placeholder="Search...">
-        <button id="searchBtn" type="submit">Search</button>
-        <div id="searchResults"></div>
-        <ul>
-            <li>home</li>
-            <li>about</li>
-            <li>contact</li>
-            
-        
-            
-        </ul>
-
-        <div class="Hamburger_Menu">
-            <div></div>
-            <span></span>
-            <span></span>
-            <span></span>
+            <!-- Search -->
+            <input id="searchInput" type="search" name="query" placeholder="Search...">
+            <button id="searchBtn" type="submit">Search</button>
+            <div id="searchResults"></div>
         </div>
     </div>
 
-
+    <!-- Dropdown Categories -->
     <div class="dropdown_container">
-
-    <div class="dropdown_menu">
-        <ul>
-            
-            <li id="clothing_list">Clothing</li>
-            <li id="beautyAndPersonalCare_list">Beauty & Personal Care</li>
-            <li id="homeAndKitchen_list">Home $ Kitchen</li>
-            <li id="officeSupplies_list">Office Supplies</li>
-            <li id="toysAndGames_list">Toys & Games</li>
-            <li id="sportsAndOutdoors_list">Sports & Outdoors</li>
-            <li id="petSupplies_list">Pet Supplies</li>
-            <li id="gardenAndOutdoors_list">Garden & Outdoor</li>
-            <li id="electronics_list">Electronics</li>
-            <li id="automotive_list">Automotive</li>
-           
-      
-            <li></li>
-        </ul>
-    </div>
-    </div>
-
-    <div class="products"></div>
-    <div class="pagination"></div>
-    <button id="prev">Prev</button>
-    <span id="page_number">1</span>
-    <button id="next">Next</button>
-
-   <script src="products.js"></script>
-<script src="script.js"></script>
-<script src="search.js"></script>
-    <div class="content_catogerie">
-
-     
-
-
-    </div>
-       <div class="automotive_list">
-
+        <div class="dropdown_menu">
+            <ul>
+                <li id="clothing_list">Clothing</li>
+                <li id="beautyAndPersonalCare_list">Beauty & Personal Care</li>
+                <li id="homeAndKitchen_list">Home & Kitchen</li>
+                <li id="officeSupplies_list">Office Supplies</li>
+                <li id="toysAndGames_list">Toys & Games</li>
+                <li id="sportsAndOutdoors_list">Sports & Outdoors</li>
+                <li id="petSupplies_list">Pet Supplies</li>
+                <li id="gardenAndOutdoors_list">Garden & Outdoors</li>
+                <li id="electronics_list">Electronics</li>
+                <li id="automotive_list">Automotive</li>
+            </ul>
         </div>
-    
+    </div>
 
 
-    <!--*********************   END  of the Main Menu *********************************************-->
+    <!-- HOME       -->
 
+    <div class="slider">
+
+      <div class="home_automotive"></div>
+
+       
+
+</div>
+
+
+
+  
+
+
+    <!-- Products -->
+    <div class="products"></div>
+
+    <!-- Pagination -->
+    <div class="pagination-controls">
+        <button id="prev">Prev</button>
+        <span id="page_number">1</span>
+        <button id="next">Next</button>
+    </div>
+
+    <!-- Extra content container -->
+    <div class="content_category"></div>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+    <script src="search.js"></script>
 
 </body>
 

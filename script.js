@@ -21,5 +21,10 @@ $(document).ready(function(){
     $(".cartTab").hide();
   })
 
+  $(document).on("click", ".userReviews", function() {
+    // toggle only reviews inside the same product
+    $(this).closest(".product").find(".review").toggle();
+});
+
 
 });
