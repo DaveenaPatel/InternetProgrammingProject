@@ -30,7 +30,6 @@ $("#searchInput").on("keyup", function () {
 
 
 function showResults(query) {
-     $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
     let q = query.toLowerCase();
     let $products = $(".products");
     $products.empty();
@@ -53,19 +52,11 @@ function showResults(query) {
                     </div>
                     <div class="product_info">
                         <p class="name">${highlightedName}</p>
-                        <p class="id">${p.id}</p>
                         <p class="category">Category: ${p.category}</p>
                         <p class="price">Price: ${p.price}</p>
                         <p class="stock">In Stock: ${p.stock}</p>
                         <p class="sku">SKU: ${p.sku}</p>
                         <p class="description">${p.description}</p>
-                              <button 
-                                    class="addToCart" 
-                                    data-id="${p.id}" 
-                                    data-name="${p.name}" 
-                                    data-price="${p.price}">
-                                    Add to Cart
-                                </button>
                     </div>
                 </div>
             `);
@@ -74,7 +65,6 @@ function showResults(query) {
 
 
 $(document).on("click", ".suggestion", function () {
-   
     let name = $(this).text();
     showResults(name);
     $("#searchResults").empty();
@@ -87,12 +77,4 @@ $("#searchInput").on("keypress", function(e) {
         showResults($(this).val());
         $("#searchResults").empty();
     }
-
-    $("#searchBtn").on("click", function () {
-    let query = $("#searchInput").val();
-    if (query.trim() !== "") {
-        showResults(query);
-        $("#searchResults").empty();
-    }
-});
 });

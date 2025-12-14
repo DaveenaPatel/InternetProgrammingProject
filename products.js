@@ -163,17 +163,20 @@ function displayAllCategories() {
                         Add to Cart
                     </button>
                     <button 
-                                class="addToWIshList" 
+                                class="addToWishList" 
                                 data-id="${categoryArray[i].id}" 
                                 data-name="${categoryArray[i].name}" 
                                 data-price="${categoryArray[i].price}">
+                                
                                 Add to WishList
                     </button>
+                   
                     <button 
                         class="viewDetails" 
                         data-id="${categoryArray[i].id}">
                         View Details
                     </button>
+                    
                 </div>
             `);
         }
@@ -258,7 +261,7 @@ $(document).on('click', '.viewDetails', function() {
                             </button>
 
                             <button 
-                                class="addToWIshList" 
+                                class="addToWishList" 
                                 data-id="${product.id}" 
                                 data-name="${product.name}" 
                                 data-price="${product.price}" 
@@ -331,14 +334,20 @@ $(document).on("click", ".addToWishList", function () {
         id: $(this).data("id"),
         name: $(this).data("name"),
         price: parseFloat($(this).data("price")),
-        image: $(this).data("image")
+        image: $(this).data("image") 
     };
-    console.log("Trying to add:", product);
+
     if (!product.id || !product.name) {
-        console.error("Product data missing!");
+        console.error("Product data missing for wishlist!");
         return;
     }
-    window.addToCart(product);
+
+    if (window.addToWishList) {
+        window.addToWishList(product);
+        console.log("Added to wishlist:", product);
+    } else {
+        console.warn("addToWishList function not found!");
+    }
 });
 
       window.onload = function() {
