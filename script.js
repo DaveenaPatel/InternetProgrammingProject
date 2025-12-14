@@ -57,11 +57,9 @@ $(document).ready(function () {
         document.cookie = name + "=" + value + expires + "; path=/";
     }
 
-<<<<<<< HEAD
 $(".checkout").click(function(){
     window.location.href = "checkout.html";
   })
-=======
     function getCookie(name) {
         const cname = name + "=";
         const decodedCookie = decodeURIComponent(document.cookie);
@@ -201,6 +199,5 @@ $(".checkout").click(function(){
     if ($("#cartCount").length) {
         updateCartCount();
     }
->>>>>>> cb47621febf25814c02a93ea2f0c2bfd57fd4624
 
 });
