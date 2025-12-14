@@ -107,6 +107,13 @@ $("#home").click(function(){
                 <h3>${automotive[i].name}</h3>
                 <p>Category: ${automotive[i].category}</p>
                 <p>Price: $${automotive[i].price}</p>
+                         <button 
+                                    class="addToCart" 
+                                    data-id="${automotive[i].id}" 
+                                    data-name="${automotive[i].name}" 
+                                    data-price="${automotive[i].price}">
+                                    Add to Cart
+                                </button>
             </div>
         `);
     }
