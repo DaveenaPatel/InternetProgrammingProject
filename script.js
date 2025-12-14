@@ -26,5 +26,12 @@ $(document).ready(function(){
     $(this).closest(".product").find(".review").toggle();
 });
 
+$(document).click(function(e) {
+    // if the clicked element is NOT the suggestion itself
+    if (!$(e.target).closest('.suggestion').length) {
+        $('.suggestion').hide(); // hide the suggestion
+    }
+});
+
 
 });

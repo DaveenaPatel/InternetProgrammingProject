@@ -50,7 +50,16 @@
 
 .suggestion{
     
-    color: #1e59a6;
+    color: #1e4580;
+    background-color: white;
+   
+    padding: 10px;
+}
+
+.suggestion:hover{
+    
+    color: #ffffff;
+    background-color: rgb(7, 58, 159);
    
     padding: 10px;
 }
