@@ -1,11 +1,11 @@
-function setCookies(name, value, days){
+function setCartCookies(name, value, days){
     const d = new Date();
     d.setDate(d.getDate() + (days * 24 * 60 * 60 * 1000));
     let expires = "expires="+ d.toUTCString();
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
-function getCookies(cname){
+function getCartCookies(cname){
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -24,7 +24,7 @@ function getCookies(cname){
 }
 
 function getCartItems(){
-    let cartItems = getCookies("cartItems");
+    let cartItems = getCartCookies("cartItems");
     if(cartItems == ""){
         return [];
     } else {
@@ -33,7 +33,7 @@ function getCartItems(){
 }
 
 function saveCartItems(cartItems){
-    setCookies("cartItems", JSON.stringify(cartItems), 7);
+    setCartCookies("cartItems", JSON.stringify(cartItems), 7);
 }
 
 function updateCartDisplay(){

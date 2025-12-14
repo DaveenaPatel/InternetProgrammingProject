@@ -1,4 +1,4 @@
-function getCookies(cname){
+function getCartCookies(cname){
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -17,7 +17,7 @@ function getCookies(cname){
 }
 
 function getCartItems(){
-    let cartItems = getCookies("cartItems");
+    let cartItems = getCartCookies("cartItems");
     if(cartItems == ""){
         return [];
     } else {

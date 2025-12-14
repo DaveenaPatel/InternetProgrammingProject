@@ -34,6 +34,16 @@ $(document).ready(function () {
         $(".cartTab").hide();
     });
 
+    $(".WishListTab").hide();
+
+    $(".icon-heart").click(function () {
+        $(".WishListTab").show();
+    });
+
+    $(".WishListTab .close").click(function () {
+        $(".WishListTab").hide();
+    });
+
     //Reviews
     $(document).on("click", ".userReviews", function () {
         $(this).closest(".product").find(".review").toggle();
