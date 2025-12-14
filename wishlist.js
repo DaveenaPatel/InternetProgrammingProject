@@ -38,6 +38,51 @@ function saveWishListItems(wishListItems){
 }
 
 function updateWishListDisplay(){
+    let wishListItems = getWishListItems();
+    const wishListItemsContainer = document.querySelector('.listWishList');
+    wishListItemsContainer.innerHTML = '';
+    totalQuantity = 0;
+
+    wishListItems.forEach(item => {
+            totalQuantity += item.quantity;
+        wishListItemsContainer.innerHTML +=`
+            <div class="wishList-item">
+            <img src="${item.image}">
+            <div class="wishListInfo">
+                // <p>${item.name} - ${item.price} * "quantity" ${item.quantity}</p>
+                <h4>${item.name}</h4>
+                <p>Price: $${item.price}</p>
+                <p>Quantity: ${item.quantity}</p>
+            </div>
+            <div class="wishList-item-actions">
+                <button class="remove-item" data-id="${item.id}">Remove</button>    
+            </div>
+            `;
+    });
+    $(".icon-heart span").text(totalQuantity);
+
     
 }
+
+$(document).ready(function(){
+    $(document).on('click', '.addToWishList', function(){
+    let id = $(this).data('id');
+    let name = $(this).data('name');
+    let price = $(this).data('price');
+    let image = $(this).closest('.product').find('img').attr('src'); 
+
+    let wishList = getWishListItems();
+
+    let existingItem = wishList.find(item => item.id == id);
+    if(existingItem){
+        existingItem.quantity += 1;
+    } else {
+        wishList.push({id: id, name: name, price: price, quantity: 1, image: image});
+    }
+
+    saveWishListItems(wishList);
+    updateWishListDisplay();
+});
+    updateWishListDisplay();
+});
 

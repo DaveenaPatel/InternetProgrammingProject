@@ -1,50 +1,39 @@
-<<<<<<< HEAD
-
-
-
-$(document).ready(function() {
-
-   
-=======
 $(document).ready(function () {
     
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
 
     const itemsPerPage = 10;
     let currentPage = 1;
+
     let home_Products = [];
     let reviews = [];
+    let allProducts = [];
+    let products_details = [];
+    var selectedProductId = getSelectedProductIdFromURL(); // Function to get selected product ID from URL
 
-    function showPage(page){
+    function getSelectedProductIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('productId');
+    }   
+
+
+    
+
+    // Pagination
+    function showPage(page) {
         let items = $(".product");
-        let start = (page -1) * itemsPerPage;
-        console.log("start : "+start)
+        let start = (page - 1) * itemsPerPage;
         let end = start + itemsPerPage;
+
         items.hide();
         items.slice(start, end).show();
         $("#page_number").text(page);
     }
 
-<<<<<<< HEAD
-    //home stuff ***************************************************************
-
-let automotive = [];
-let garden = [];
-let office = [];
-let electronics = [];
-let clothing = [];
-let sports = [];
-let toys = [];
-let pet = [];
-let beauty = [];
-let homekitchen = [];
-
-$.getJSON("data/products.json", function(data){
-    home_Products = data;
-    console.log("All products loaded:", home_Products);
 
 
-=======
+
+    
+
     //
    let automotive = [];
 let garden = [];
@@ -57,12 +46,43 @@ let pet = [];
 let beauty = [];
 let homekitchen = [];
 
+    $.getJSON("data/product-reviews.json", function (data) {
+        let products = data.products;
+
+        // Find the product that matches the selected ID
+        let product = products.find(p => p.productId === selectedProductId);
+
+        if (product) {
+            // Display product info
+            console.log("product id: " + product.productId);
+            console.log("product name: " + product.productName);
+            console.log("average rating: " + product.averageRating);
+            console.log("total reviews: " + product.totalReviews);
+
+            // Display its reviews
+            product.reviews.forEach(function (review) {
+                console.log("review id: " + review.reviewId);
+                console.log("user name: " + review.userName);
+                console.log("rating: " + review.rating);
+                console.log("title: " + review.title);
+                console.log("content: " + review.content);
+                console.log("date: " + review.date);
+                console.log("verified purchase: " + review.verifiedPurchase);
+                console.log("helpful votes: " + review.helpfulVotes);
+                console.log("images: " + review.images);
+            });
+        } else {
+            console.log("Product not found.");
+        }
+    });
+
+
+
 $.getJSON("data/products.json", function(data){
     home_Products = data;
     console.log("All products loaded:", home_Products);
 
 
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
     $.getJSON("data/reviews.json", function(data){
         reviews = data;
     })
@@ -125,17 +145,12 @@ function displayHomeKitchen() {
 
 // Example: show  products
 function displayAllCategories() {
-    // Clear previous content
     $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
 
     function displayCategory(categoryArray, containerClass) {
         for (let i = 0; i < categoryArray.length; i++) {
             $(containerClass).append(`
-<<<<<<< HEAD
                 <div class="p">
-=======
-                <div class="product">
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
                     <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
                     <h3>${categoryArray[i].name}</h3>
                     <p>Category: ${categoryArray[i].category}</p>
@@ -144,19 +159,18 @@ function displayAllCategories() {
                         class="addToCart" 
                         data-id="${categoryArray[i].id}" 
                         data-name="${categoryArray[i].name}" 
-<<<<<<< HEAD
                         data-price="${categoryArray[i].price}">
-=======
-                        data-price="${categoryArray[i].price}"
-                        data-image="${categoryArray[i].image}">
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
                         Add to Cart
+                    </button>
+                    <button 
+                        class="viewDetails" 
+                        data-id="${categoryArray[i].id}">
+                        View Details
                     </button>
                 </div>
             `);
         }
     }
-<<<<<<< HEAD
 
     // Display each category
     displayCategory(automotive, ".home_automotive");
@@ -171,48 +185,12 @@ function displayAllCategories() {
     displayCategory(homekitchen, ".home_homekitchen");
 }
 
-
-  // Display products on page load
-    $("#home").click(displayAllCategories); // Also display when #home is clicked
-   
-
-
-
-
-
-//end of home stuff  *************************************888
-
-
-
-
-
-
-
-
-
-function loadCategory(file) {
-    $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
-
-    currentPage = 1;
-    $("#page_number").text(currentPage);
-
-    $.getJSON(`data/${file}.json`, function(products) {
-
-        $.getJSON("data/reviews.json", function(reviewsData) {
-=======
-
-    // Display each category
-    displayCategory(automotive, ".home_automotive");
-    displayCategory(garden, ".home_garden");
-    displayCategory(office, ".home_office");
-    displayCategory(electronics, ".home_electronics");
-    displayCategory(clothing, ".home_clothing");
-    displayCategory(sports, ".home_sports");
-    displayCategory(toys, ".home_toys");
-    displayCategory(pet, ".home_pet");
-    displayCategory(beauty, ".home_beauty");
-    displayCategory(homekitchen, ".home_homekitchen");
-}
+// Event delegation MUST be outside, once
+$(document).on('click', '.viewDetails', function() {
+    const id = $(this).data('id');
+    $(".one_product").empty(); // Clear previous details
+    showProductDetails(id);    // Show details of clicked product
+});
 
 
   // Display products on page load
@@ -228,41 +206,30 @@ function loadCategory(file) {
         $("#page_number").text(currentPage);
         $(".products").empty();
         $(".home_automotive").empty();
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
 
+        $.getJSON(`data/${file}.json`, function (products) {
             allProducts = products;
-            $(".products").empty();
 
-            for (let i = 0; i < products.length; i++) {
-                let product = products[i];
+            products.forEach(product => {
 
-                // find reviews for this product
-                let productReviews = null;
-                for (let j = 0; j < reviewsData.length; j++) {
-                    if (reviewsData[j].product_id == product.id) {
-                        productReviews = reviewsData[j].reviews;
-                        break;
-                    }
-                }
-
+                let productReviews = reviews.find(r => r.product_id == product.id);
                 let reviewsHTML = "";
+
                 if (productReviews) {
-                    for (let k = 0; k < productReviews.length; k++) {
+                    productReviews.reviews.forEach(r => {
                         reviewsHTML += `
                             <div class="review">
-                                <strong>${productReviews[k].user}</strong>
-                                (${productReviews[k].rating}/5)
-                                <p>${productReviews[k].comment}</p>
+                                <strong>${r.user}</strong> (${r.rating}/5)
+                                <p>${r.comment}</p>
                             </div>
                         `;
-                     
-                    }
+                    });
                 }
 
                 $(".products").append(`
                     <div class="product">
                         <div class="image">
-                            <img src="${product.image}?v=${Math.random()}" />
+                            <img src="${product.image}?v=${Math.random()}">
                         </div>
 
                         <div class="product_info">
@@ -273,16 +240,18 @@ function loadCategory(file) {
                             <p class="description">${product.description}</p>
                             <p class="stock">in Stock : ${product.stock}</p>
                             <p class="sku">${product.sku}</p>
-                            <button 
-                                    class="addToCart" 
-                                    data-id="${product.id}" 
-                                    data-name="${product.name}" 
-                                    data-price="${product.price}">
-                                    Add to Cart
-                                </button>
 
                             <button 
-                                class="wishListButton" 
+                                class="addToCart" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-image="${product.image}">
+                                Add to Cart
+                            </button>
+
+                            <button 
+                                class="addToWIshList" 
                                 data-id="${product.id}" 
                                 data-name="${product.name}" 
                                 data-price="${product.price}" 
@@ -298,23 +267,15 @@ function loadCategory(file) {
                         </div>
                     </div>
                 `);
-            }
+            });
 
             showPage(currentPage);
-           
         });
-    });
 
-    $(".dropdown_menu").hide();
-}
+        $(".dropdown_menu").hide();
+    }
 
     // Category buttons
-  
-
-
-
-
-
     $("#automotive_list").click(() => loadCategory("Automotive"));
     $("#clothing_list").click(() => loadCategory("Clothing"));
     $("#beautyAndPersonalCare_list").click(() => loadCategory("Beauty & Personal Care"));
@@ -327,60 +288,87 @@ function loadCategory(file) {
     $("#electronics_list").click(() => loadCategory("Electronics"));
 
     // Pagination
-
-
-<<<<<<< HEAD
-$("#next").click(function (){
-    let total = $(".product").length;
-    console.log(total);
-    let maxPage = Math.ceil(total/itemsPerPage);
-    console.log(maxPage);
-    if(currentPage < maxPage){
-        currentPage++;
-        showPage(currentPage);
-    }
-=======
-    // Add to cart
-    $(document).on("click", ".addToCart", function () {
-        let cartItems = getCartItems();
-        
-        let prodcut = {
-            id: $(this).data("id"),
-            name: $(this).data("name"),
-            price: parseFloat($(this).data("price")),
-            image: $(this).data("image"),
-            quantity: 1
-        };
-
-        let existingItem = cartItems.find(item => item.id === prodcut.id);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cartItems.push(prodcut);
+    $("#next").click(function () {
+        let maxPage = Math.ceil($(".product").length / itemsPerPage);
+        if (currentPage < maxPage) {
+            currentPage++;
+            showPage(currentPage);
         }
-
-        saveCartItems(cartItems);
-        updateCartDisplay();
     });
->>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
 
-    //   window.onload = function() {
-    displayAllCategories();
-// };
+    $("#prev").click(function () {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
 
-
-});
-
-$("#prev").click(function (){
-    if(currentPage > 1){
-        currentPage--;
-        showPage(currentPage);
-    
+    // Add to cart
+$(document).on("click", ".addToCart", function () {
+    const product = {
+        id: $(this).data("id"),
+        name: $(this).data("name"),
+        price: parseFloat($(this).data("price")),
+        image: $(this).data("image")
+    };
+    console.log("Trying to add:", product);
+    if (!product.id || !product.name) {
+        console.error("Product data missing!");
+        return;
     }
+    window.addToCart(product);
 });
-  window.onload = function() {
+// Add to WishList
+$(document).on("click", ".addToWishList", function () {
+    const product = {
+        id: $(this).data("id"),
+        name: $(this).data("name"),
+        price: parseFloat($(this).data("price")),
+        image: $(this).data("image")
+    };
+    console.log("Trying to add:", product);
+    if (!product.id || !product.name) {
+        console.error("Product data missing!");
+        return;
+    }
+    window.addToCart(product);
+});
+
+      window.onload = function() {
     displayAllCategories();
 };
+
+function showProductDetails(selectedProductId) {
+    $.getJSON("data/product-reviews.json", function (data) {
+        products_details = data.products;
+
+        // Find the product that matches the selected ID
+        let product = products.find(p => p.productId === selectedProductId);
+
+        if (product) {
+            // Display product info
+            console.log("product id: " + product.productId);
+            console.log("product name: " + product.productName);
+            console.log("average rating: " + product.averageRating);
+            console.log("total reviews: " + product.totalReviews);
+
+            // Display its reviews
+            product.reviews.forEach(function (review) {
+                console.log("review id: " + review.reviewId);
+                console.log("user name: " + review.userName);
+                console.log("rating: " + review.rating);
+                console.log("title: " + review.title);
+                console.log("content: " + review.content);
+                console.log("date: " + review.date);
+                console.log("verified purchase: " + review.verifiedPurchase);
+                console.log("helpful votes: " + review.helpfulVotes);
+                console.log("images: " + review.images);
+            });
+        } else {
+            console.log("Product not found.");
+        }
+    });
+}
 
 
 
