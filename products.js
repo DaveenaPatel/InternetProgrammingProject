@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 
 
 
 $(document).ready(function() {
 
    
+=======
+$(document).ready(function () {
+    
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
 
     const itemsPerPage = 10;
     let currentPage = 1;
@@ -20,6 +25,7 @@ $(document).ready(function() {
         $("#page_number").text(page);
     }
 
+<<<<<<< HEAD
     //home stuff ***************************************************************
 
 let automotive = [];
@@ -38,6 +44,25 @@ $.getJSON("data/products.json", function(data){
     console.log("All products loaded:", home_Products);
 
 
+=======
+    //
+   let automotive = [];
+let garden = [];
+let office = [];
+let electronics = [];
+let clothing = [];
+let sports = [];
+let toys = [];
+let pet = [];
+let beauty = [];
+let homekitchen = [];
+
+$.getJSON("data/products.json", function(data){
+    home_Products = data;
+    console.log("All products loaded:", home_Products);
+
+
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
     $.getJSON("data/reviews.json", function(data){
         reviews = data;
     })
@@ -106,7 +131,11 @@ function displayAllCategories() {
     function displayCategory(categoryArray, containerClass) {
         for (let i = 0; i < categoryArray.length; i++) {
             $(containerClass).append(`
+<<<<<<< HEAD
                 <div class="p">
+=======
+                <div class="product">
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
                     <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
                     <h3>${categoryArray[i].name}</h3>
                     <p>Category: ${categoryArray[i].category}</p>
@@ -115,13 +144,19 @@ function displayAllCategories() {
                         class="addToCart" 
                         data-id="${categoryArray[i].id}" 
                         data-name="${categoryArray[i].name}" 
+<<<<<<< HEAD
                         data-price="${categoryArray[i].price}">
+=======
+                        data-price="${categoryArray[i].price}"
+                        data-image="${categoryArray[i].image}">
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
                         Add to Cart
                     </button>
                 </div>
             `);
         }
     }
+<<<<<<< HEAD
 
     // Display each category
     displayCategory(automotive, ".home_automotive");
@@ -164,6 +199,36 @@ function loadCategory(file) {
     $.getJSON(`data/${file}.json`, function(products) {
 
         $.getJSON("data/reviews.json", function(reviewsData) {
+=======
+
+    // Display each category
+    displayCategory(automotive, ".home_automotive");
+    displayCategory(garden, ".home_garden");
+    displayCategory(office, ".home_office");
+    displayCategory(electronics, ".home_electronics");
+    displayCategory(clothing, ".home_clothing");
+    displayCategory(sports, ".home_sports");
+    displayCategory(toys, ".home_toys");
+    displayCategory(pet, ".home_pet");
+    displayCategory(beauty, ".home_beauty");
+    displayCategory(homekitchen, ".home_homekitchen");
+}
+
+
+  // Display products on page load
+    $("#home").click(displayAllCategories); // Also display when #home is clicked
+   
+
+
+
+    // Category load
+    function loadCategory(file) {
+         $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
+        currentPage = 1;
+        $("#page_number").text(currentPage);
+        $(".products").empty();
+        $(".home_automotive").empty();
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
 
             allProducts = products;
             $(".products").empty();
@@ -216,6 +281,15 @@ function loadCategory(file) {
                                     Add to Cart
                                 </button>
 
+                            <button 
+                                class="wishListButton" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-image="${product.image}">
+                                Add to WishList
+                            </button>
+
                             <button class="userReviews">Comments</button>
                         </div>
 
@@ -255,6 +329,7 @@ function loadCategory(file) {
     // Pagination
 
 
+<<<<<<< HEAD
 $("#next").click(function (){
     let total = $(".product").length;
     console.log(total);
@@ -264,6 +339,35 @@ $("#next").click(function (){
         currentPage++;
         showPage(currentPage);
     }
+=======
+    // Add to cart
+    $(document).on("click", ".addToCart", function () {
+        let cartItems = getCartItems();
+        
+        let prodcut = {
+            id: $(this).data("id"),
+            name: $(this).data("name"),
+            price: parseFloat($(this).data("price")),
+            image: $(this).data("image"),
+            quantity: 1
+        };
+
+        let existingItem = cartItems.find(item => item.id === prodcut.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push(prodcut);
+        }
+
+        saveCartItems(cartItems);
+        updateCartDisplay();
+    });
+>>>>>>> c4d39346fc8d0098c0cae02bb9e5414a614073eb
+
+    //   window.onload = function() {
+    displayAllCategories();
+// };
+
 
 });
 
