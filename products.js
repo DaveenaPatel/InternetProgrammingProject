@@ -163,6 +163,13 @@ function displayAllCategories() {
                         Add to Cart
                     </button>
                     <button 
+                                class="addToWIshList" 
+                                data-id="${categoryArray[i].id}" 
+                                data-name="${categoryArray[i].name}" 
+                                data-price="${categoryArray[i].price}">
+                                Add to WishList
+                    </button>
+                    <button 
                         class="viewDetails" 
                         data-id="${categoryArray[i].id}">
                         View Details
