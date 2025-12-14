@@ -1,10 +1,11 @@
 let products = [];
 
+//Load products
 $.getJSON("data/products.json", function (data) {
     products = data;
 });
 
-
+//Search input
 $("#searchInput").on("keyup", function () {
     let q = $(this).val().toLowerCase();
     let $results = $("#searchResults");
@@ -19,16 +20,22 @@ $("#searchInput").on("keyup", function () {
         )
         .slice(0, 5)
         .forEach(p => {
+
+            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
             );
 
-            $results.append(`<div class="suggestion" data-id="${p.id}">${highlightedName}</div>`);
+            $results.append(`
+                <div class="suggestion" data-id="${p.id}">
+                    ${highlightedName}
+                </div>
+            `);
         });
 });
 
-
+//Show results
 function showResults(query) {
     let q = query.toLowerCase();
     let $products = $(".products");
@@ -40,6 +47,8 @@ function showResults(query) {
             p.category.toLowerCase().includes(q)
         )
         .forEach(p => {
+
+            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
@@ -63,7 +72,7 @@ function showResults(query) {
         });
 }
 
-
+//Suggestion click
 $(document).on("click", ".suggestion", function () {
     let name = $(this).text();
     showResults(name);
@@ -71,8 +80,8 @@ $(document).on("click", ".suggestion", function () {
     $("#searchInput").val(name);
 });
 
-
-$("#searchInput").on("keypress", function(e) {
+//Enter key
+$("#searchInput").on("keypress", function (e) {
     if (e.which === 13) {
         showResults($(this).val());
         $("#searchResults").empty();
