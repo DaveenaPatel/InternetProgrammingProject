@@ -65,5 +65,23 @@ function updateCartDisplay(){
 }
 
 $(document).ready(function(){
+    $(document).on('click', '.addToCart', function(){
+    let id = $(this).data('id');
+    let name = $(this).data('name');
+    let price = $(this).data('price');
+    let image = $(this).closest('.product').find('img').attr('src'); 
+
+    let cart = getCartItems();
+
+    let existingItem = cart.find(item => item.id == id);
+    if(existingItem){
+        existingItem.quantity += 1;
+    } else {
+        cart.push({id: id, name: name, price: price, quantity: 1, image: image});
+    }
+
+    saveCartItems(cart);
+    updateCartDisplay();
+});
     updateCartDisplay();
 });
