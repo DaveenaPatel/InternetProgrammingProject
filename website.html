@@ -82,7 +82,48 @@
 
     <div class="slider">
 
-      <div class="home_automotive"></div>
+        <div class="p_slider">
+            <div class="home_automotive"></div>
+        </div>
+          <div class="p_slider">
+            <div class="home_garden"></div>
+        </div>
+          <div class="p_slider">
+            <div class="home_office"></div>
+        </div>
+          <div class="p_slider">
+           <div class="home_electronics"></div>
+        </div>
+          <div class="p_slider">
+            <div class="home_clothing"></div>
+        </div>
+          <div class="p_slider">
+           
+        <div class="home_sports"></div>
+        </div>
+          <div class="p_slider">
+            <div class="home_toys"></div>
+        </div>
+
+              <div class="p_slider">
+            
+<div class="home_pet"></div>
+        </div>
+              <div class="p_slider">
+           <div class="home_beauty"></div>
+        </div>
+              <div class="p_slider">
+            <div class="home_homekitchen"></div>
+        </div>
+
+      
+
+
+
+
+
+
+
 
        
 
@@ -107,9 +148,17 @@
     <div class="content_category"></div>
 
     <!-- Scripts -->
-    <script src="products.js"></script>
+    <script src="products.js">
+      
+    </script>
     <script src="script.js"></script>
     <script src="search.js"></script>
+    <script>
+    // This runs after products.js is loaded
+    $(document).ready(function() {
+        $("#home").trigger("click");
+    });
+</script>
 
 </body>
 

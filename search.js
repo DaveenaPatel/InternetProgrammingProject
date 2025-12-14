@@ -30,6 +30,7 @@ $("#searchInput").on("keyup", function () {
 
 
 function showResults(query) {
+     $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
     let q = query.toLowerCase();
     let $products = $(".products");
     $products.empty();
@@ -73,6 +74,7 @@ function showResults(query) {
 
 
 $(document).on("click", ".suggestion", function () {
+   
     let name = $(this).text();
     showResults(name);
     $("#searchResults").empty();

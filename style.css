@@ -20,6 +20,9 @@
 
 }
 
+
+
+
 #searchResults{
     position:absolute;
     left: 265px;
@@ -70,7 +73,16 @@
 
 
 
-.home_automotive
+.home_automotive,
+.home_garden,
+.home_office,
+.home_electronics,
+.home_clothing,
+.home_sports,
+.home_toys,
+.home_pet,
+.home_beauty,
+.home_homekitchen 
 {
     display: flex;
     align-items: center;
@@ -85,6 +97,15 @@
   border: 2px solid rgb(242, 246, 251); 
   background-color: hsl(211, 66%, 91%);
   padding: 10px;
+}
+
+.p_slider{
+    overflow:auto;
+    margin: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+ 
+
 }
 
 .slider{
@@ -208,6 +229,15 @@ to { transform: translateX(-100%); }
 .dropdown_menu ul li:hover {
     background-color: rgb(44, 133, 197);
     color: aliceblue;
+ 
+}
+.dropdown_menu ul li {
+    list-style: none;
+
+padding: 20px;
+border-bottom: #000000;
+
+ 
 }
 
 

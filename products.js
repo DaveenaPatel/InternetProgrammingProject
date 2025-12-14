@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
+   
+
     const itemsPerPage = 10;
     let currentPage = 1;
     let home_Products = [];
@@ -95,29 +97,50 @@ function displayHomeKitchen() {
     homekitchen = home_Products.filter(p => p.category === "Home & Kitchen");
 }
 
-// Example: show automotive products
-$("#home").click(function(){
-    $(".home_automotive").empty(); 
-    $(".products").empty(); // clear previous slider content
+// Example: show  products
+function displayAllCategories() {
+    // Clear previous content
+    $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
 
-    for (let i = 0; i < automotive.length; i++) {
-        $(".home_automotive").append(`
-            <div class="p">
-                <img src="${automotive[i].image}?v=${Math.random()}" alt="${automotive[i].name}" style="width:200px;height:200px;">
-                <h3>${automotive[i].name}</h3>
-                <p>Category: ${automotive[i].category}</p>
-                <p>Price: $${automotive[i].price}</p>
-                         <button 
-                                    class="addToCart" 
-                                    data-id="${automotive[i].id}" 
-                                    data-name="${automotive[i].name}" 
-                                    data-price="${automotive[i].price}">
-                                    Add to Cart
-                                </button>
-            </div>
-        `);
+    function displayCategory(categoryArray, containerClass) {
+        for (let i = 0; i < categoryArray.length; i++) {
+            $(containerClass).append(`
+                <div class="p">
+                    <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
+                    <h3>${categoryArray[i].name}</h3>
+                    <p>Category: ${categoryArray[i].category}</p>
+                    <p>Price: $${categoryArray[i].price}</p>
+                    <button 
+                        class="addToCart" 
+                        data-id="${categoryArray[i].id}" 
+                        data-name="${categoryArray[i].name}" 
+                        data-price="${categoryArray[i].price}">
+                        Add to Cart
+                    </button>
+                </div>
+            `);
+        }
     }
-});
+
+    // Display each category
+    displayCategory(automotive, ".home_automotive");
+    displayCategory(garden, ".home_garden");
+    displayCategory(office, ".home_office");
+    displayCategory(electronics, ".home_electronics");
+    displayCategory(clothing, ".home_clothing");
+    displayCategory(sports, ".home_sports");
+    displayCategory(toys, ".home_toys");
+    displayCategory(pet, ".home_pet");
+    displayCategory(beauty, ".home_beauty");
+    displayCategory(homekitchen, ".home_homekitchen");
+}
+
+
+  // Display products on page load
+    $("#home").click(displayAllCategories); // Also display when #home is clicked
+   
+
+
 
 
 
@@ -132,7 +155,7 @@ $("#home").click(function(){
 
 
 function loadCategory(file) {
-    $(".home_automotive").empty();
+    $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
 
     currentPage = 1;
     $("#page_number").text(currentPage);
@@ -250,6 +273,9 @@ $("#prev").click(function (){
     
     }
 });
+  window.onload = function() {
+    displayAllCategories();
+};
 
 
 
