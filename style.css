@@ -18,8 +18,8 @@
 
 #searchResults{
     position:absolute;
-    left: 265px;
-    top: 85px;
+    left:3px;
+    top: 157px;
     color: black;
     padding: 10px;
     margin: 30px;
@@ -57,11 +57,25 @@
     background-color: rgb(221, 244, 255);
 }
 
-.home_automotive {
+
+.home_automotive,
+.home_garden,
+.home_office,
+.home_electronics,
+.home_clothing,
+.home_sports,
+.home_toys,
+.home_pet,
+.home_beauty,
+.home_homekitchen 
+{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1em;
+
+ 
+
 }
 
 .review {
@@ -173,6 +187,8 @@
     width: 500px;
     height: 100%;
     top: -1px;
+    
+    
     list-style: none;
     margin: 0;
 }
@@ -180,6 +196,15 @@
 .dropdown_menu ul li:hover {
     background-color: rgb(44, 133, 197);
     color: aliceblue;
+ 
+}
+.dropdown_menu ul li {
+    list-style: none;
+
+padding: 20px;
+border-bottom: #000000;
+
+ 
 }
 
 .dark {

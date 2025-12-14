@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
 
     const itemsPerPage = 10;
     let currentPage = 1;
@@ -19,65 +20,130 @@ $(document).ready(function () {
     }
 
     //
-    let automotive = [];
-    let garden = [];
-    let office = [];
-    let electronics = [];
-    let clothing = [];
-    let sports = [];
-    let toys = [];
-    let pet = [];
-    let beauty = [];
-    let homekitchen = [];
+   let automotive = [];
+let garden = [];
+let office = [];
+let electronics = [];
+let clothing = [];
+let sports = [];
+let toys = [];
+let pet = [];
+let beauty = [];
+let homekitchen = [];
 
-    // Load products
-    $.getJSON("data/products.json", function (data) {
-        home_Products = data;
+$.getJSON("data/products.json", function(data){
+    home_Products = data;
+    console.log("All products loaded:", home_Products);
 
-        automotive = data.filter(p => p.category === "Automotive");
-        garden = data.filter(p => p.category === "Garden & Outdoors");
-        office = data.filter(p => p.category === "Office Supplies");
-        electronics = data.filter(p => p.category === "Electronics");
-        clothing = data.filter(p => p.category === "Clothing");
-        sports = data.filter(p => p.category === "Sports & Outdoors");
-        toys = data.filter(p => p.category === "Toys & Games");
-        pet = data.filter(p => p.category === "Pet Supplies");
-        beauty = data.filter(p => p.category === "Beauty & Personal Care");
-        homekitchen = data.filter(p => p.category === "Home & Kitchen");
-    });
 
-    // Load reviews
-    $.getJSON("data/reviews.json", function (data) {
+    $.getJSON("data/reviews.json", function(data){
         reviews = data;
-    });
+    })
 
-    // Home
-    $("#home").click(function () {
-        $(".home_automotive").empty();
-        $(".products").empty();
+    // Filter products into categories
+    displayAutomotive();
+    displayGarden();
+    displayOffice();
+    displayElectronics();
+    displayClothing();
+    displaySports();
+    displayToys();
+    displayPet();
+    displayBeauty();
+    displayHomeKitchen();
 
-        automotive.forEach(p => {
-            $(".home_automotive").append(`
+    console.log("Automotive:", automotive);
+    console.log("Garden & Outdoors:", garden);
+    console.log("Office Supplies:", office);
+    console.log("Electronics:", electronics);
+    console.log("Clothing:", clothing);
+    console.log("Sports & Outdoors:", sports);
+    console.log("Toys & Games:", toys);
+    console.log("Pet Supplies:", pet);
+    console.log("Beauty & Personal Care:", beauty);
+    console.log("Home & Kitchen:", homekitchen);
+});
+
+// Functions to filter each category
+function displayAutomotive() {
+    automotive = home_Products.filter(p => p.category === "Automotive");
+}
+function displayGarden() {
+    garden = home_Products.filter(p => p.category === "Garden & Outdoors");
+}
+function displayOffice() {
+    office = home_Products.filter(p => p.category === "Office Supplies");
+}
+function displayElectronics() {
+    electronics = home_Products.filter(p => p.category === "Electronics");
+}
+function displayClothing() {
+    clothing = home_Products.filter(p => p.category === "Clothing");
+}
+function displaySports() {
+    sports = home_Products.filter(p => p.category === "Sports & Outdoors");
+}
+function displayToys() {
+    toys = home_Products.filter(p => p.category === "Toys & Games");
+}
+function displayPet() {
+    pet = home_Products.filter(p => p.category === "Pet Supplies");
+}
+function displayBeauty() {
+    beauty = home_Products.filter(p => p.category === "Beauty & Personal Care");
+}
+function displayHomeKitchen() {
+    homekitchen = home_Products.filter(p => p.category === "Home & Kitchen");
+}
+
+// Example: show  products
+function displayAllCategories() {
+    // Clear previous content
+    $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
+
+    function displayCategory(categoryArray, containerClass) {
+        for (let i = 0; i < categoryArray.length; i++) {
+            $(containerClass).append(`
                 <div class="p">
-                    <img src="${p.image}?v=${Math.random()}" style="width:200px;height:200px;">
-                    <h3>${p.name}</h3>
-                    <p>Category: ${p.category}</p>
-                    <p>Price: $${p.price}</p>
+                    <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
+                    <h3>${categoryArray[i].name}</h3>
+                    <p>Category: ${categoryArray[i].category}</p>
+                    <p>Price: $${categoryArray[i].price}</p>
                     <button 
                         class="addToCart" 
-                        data-id="${p.id}" 
-                        data-name="${p.name}" 
-                        data-price="${p.price}" 
-                        data-image="${p.image}">
+                        data-id="${categoryArray[i].id}" 
+                        data-name="${categoryArray[i].name}" 
+                        data-price="${categoryArray[i].price}">
                         Add to Cart
                     </button>
                 </div>
             `);
-        });
-    });
+        }
+    }
+
+    // Display each category
+    displayCategory(automotive, ".home_automotive");
+    displayCategory(garden, ".home_garden");
+    displayCategory(office, ".home_office");
+    displayCategory(electronics, ".home_electronics");
+    displayCategory(clothing, ".home_clothing");
+    displayCategory(sports, ".home_sports");
+    displayCategory(toys, ".home_toys");
+    displayCategory(pet, ".home_pet");
+    displayCategory(beauty, ".home_beauty");
+    displayCategory(homekitchen, ".home_homekitchen");
+}
+
+
+  // Display products on page load
+    $("#home").click(displayAllCategories); // Also display when #home is clicked
+   
+
+
 
     // Category load
     function loadCategory(file) {
+         $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
         currentPage = 1;
         $("#page_number").text(currentPage);
         $(".products").empty();
@@ -181,5 +247,10 @@ $(document).ready(function () {
             });
         }
     });
+
+      window.onload = function() {
+    displayAllCategories();
+};
+
 
 });

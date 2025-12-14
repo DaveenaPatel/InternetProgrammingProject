@@ -1,11 +1,10 @@
 let products = [];
 
-//Load products
 $.getJSON("data/products.json", function (data) {
     products = data;
 });
 
-//Search input
+
 $("#searchInput").on("keyup", function () {
     let q = $(this).val().toLowerCase();
     let $results = $("#searchResults");
@@ -20,23 +19,18 @@ $("#searchInput").on("keyup", function () {
         )
         .slice(0, 5)
         .forEach(p => {
-
-            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
             );
 
-            $results.append(`
-                <div class="suggestion" data-id="${p.id}">
-                    ${highlightedName}
-                </div>
-            `);
+            $results.append(`<div class="suggestion" data-id="${p.id}">${highlightedName}</div>`);
         });
 });
 
-//Show results
+
 function showResults(query) {
+     $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
     let q = query.toLowerCase();
     let $products = $(".products");
     $products.empty();
@@ -47,8 +41,6 @@ function showResults(query) {
             p.category.toLowerCase().includes(q)
         )
         .forEach(p => {
-
-            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
@@ -67,41 +59,40 @@ function showResults(query) {
                         <p class="stock">In Stock: ${p.stock}</p>
                         <p class="sku">SKU: ${p.sku}</p>
                         <p class="description">${p.description}</p>
-
-                        <button 
-                            class="addToCart" 
-                            data-id="${p.id}" 
-                            data-name="${p.name}" 
-                            data-price="${p.price}">
-                            Add to Cart
-                        </button>
+                              <button 
+                                    class="addToCart" 
+                                    data-id="${p.id}" 
+                                    data-name="${p.name}" 
+                                    data-price="${p.price}">
+                                    Add to Cart
+                                </button>
                     </div>
                 </div>
             `);
         });
 }
 
-//Suggestion click
+
 $(document).on("click", ".suggestion", function () {
+   
     let name = $(this).text();
     showResults(name);
     $("#searchResults").empty();
     $("#searchInput").val(name);
 });
 
-//Enter key
-$("#searchInput").on("keypress", function (e) {
+
+$("#searchInput").on("keypress", function(e) {
     if (e.which === 13) {
         showResults($(this).val());
         $("#searchResults").empty();
     }
-});
 
-//Search button
-$("#searchBtn").on("click", function () {
+    $("#searchBtn").on("click", function () {
     let query = $("#searchInput").val();
     if (query.trim() !== "") {
         showResults(query);
         $("#searchResults").empty();
     }
+});
 });
