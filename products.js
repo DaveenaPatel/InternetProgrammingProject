@@ -104,7 +104,7 @@ function displayAllCategories() {
     function displayCategory(categoryArray, containerClass) {
         for (let i = 0; i < categoryArray.length; i++) {
             $(containerClass).append(`
-                <div class="p">
+                <div class="product">
                     <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
                     <h3>${categoryArray[i].name}</h3>
                     <p>Category: ${categoryArray[i].category}</p>
@@ -113,7 +113,8 @@ function displayAllCategories() {
                         class="addToCart" 
                         data-id="${categoryArray[i].id}" 
                         data-name="${categoryArray[i].name}" 
-                        data-price="${categoryArray[i].price}">
+                        data-price="${categoryArray[i].price}"
+                        data-image="${categoryArray[i].image}">
                         Add to Cart
                     </button>
                 </div>
@@ -192,6 +193,15 @@ function displayAllCategories() {
                                 Add to Cart
                             </button>
 
+                            <button 
+                                class="wishListButton" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-image="${product.image}">
+                                Add to WishList
+                            </button>
+
                             <button class="userReviews">Comments</button>
                         </div>
 
@@ -238,19 +248,30 @@ function displayAllCategories() {
 
     // Add to cart
     $(document).on("click", ".addToCart", function () {
-        if (window.addToCart) {
-            window.addToCart({
-                id: $(this).data("id"),
-                name: $(this).data("name"),
-                price: $(this).data("price"),
-                image: $(this).data("image")
-            });
+        let cartItems = getCartItems();
+        
+        let prodcut = {
+            id: $(this).data("id"),
+            name: $(this).data("name"),
+            price: parseFloat($(this).data("price")),
+            image: $(this).data("image"),
+            quantity: 1
+        };
+
+        let existingItem = cartItems.find(item => item.id === prodcut.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push(prodcut);
         }
+
+        saveCartItems(cartItems);
+        updateCartDisplay();
     });
 
-      window.onload = function() {
+    //   window.onload = function() {
     displayAllCategories();
-};
+// };
 
 
 });
