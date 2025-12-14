@@ -4,7 +4,7 @@ $.getJSON("data/products.json", function (data) {
 
 $("#searchInput").on("keyup", function () {
   let q = $(this).val().toLowerCase();
-  let $results = $("#searchResults"); // <-- use the correct div
+  let $results = $("#searchResults");
   $results.empty();
 
   if (q === "") return;
@@ -16,6 +16,11 @@ $("#searchInput").on("keyup", function () {
     )
     .slice(0, 5)
     .forEach(p => {
-      $results.append(`<div class="suggestion">${p.name}</div>`);
+      // Highlight the matching part
+      let highlightedName = p.name.replace(
+        new RegExp(q, "gi"),
+        match => `<span class="highlight">${match}</span>`
+      );
+      $results.append(`<div class="suggestion">${highlightedName}</div>`);
     });
 });
