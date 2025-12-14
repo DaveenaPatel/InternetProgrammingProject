@@ -35,7 +35,10 @@ $(document).ready(function() {
                         <p class="category">category : ${product.category}</p>
                         <p class="description">description : ${product.description}</p>
                         <p class="stock">in Stock : ${product.stock}</p>
-                        <p class="sku">${product.sku}</p>
+                        <p class="sku">${product.sku}</p> 
+                        <button class="addToCart" data-id="${product.id}"data-name="${product.name}"data-price="${product.price}"data-image="${product.image}">
+                        Add to Cart
+                        </button>
                         </div>
                     </div>
                 `);
@@ -45,6 +48,28 @@ $(document).ready(function() {
         });
             $(".dropdown_menu").hide();
     }
+
+    $(document).on('click', '.addToCart', function(){
+      let cartItems = getCartItems();
+
+      let product = {
+        id: $(this).data('id'),
+        name: $(this).data('name'),
+        price: $(this).data('price'),
+        image: $(this).data('image'),
+        quantity: 1
+      };
+
+      let existingItem = cartItems.find(item => item.id === product.id);
+      if(existingItem){
+        existingItem.quantity += 1;
+      } else {
+        cartItems.push(product);
+      }
+
+      saveCartItems(cartItems);
+      updateCartDisplay();
+    });
 
     // Category buttons
     

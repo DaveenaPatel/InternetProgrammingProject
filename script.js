@@ -21,5 +21,9 @@ $(document).ready(function(){
     $(".cartTab").hide();
   })
 
+  $(".checkout").click(function(){
+    window.location.href = "checkout.html";
+  })
+
 
 });

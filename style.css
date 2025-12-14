@@ -123,6 +123,20 @@ header .icon-cart span{
     cursor: pointer;
 }
 
+.cartTab .btn .close{
+    background-color: lightgray;
+}
+
+.cartItem{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    background-color: floralwhite;
+    /* color: floralwhite; */
+}
+
 /* ******************** The End ****************************** */
 
 .product{
