@@ -1,11 +1,9 @@
 /* ******************* The Main Menu  ************************* */
 .Main_Menu ul{
-
     display: flex;
     flex-direction: row;
     gap: 30px;
     list-style: none;
-
 }
 
 .leftSideMainMenu {
@@ -16,8 +14,6 @@
 .Main_Menu {
     background-color: rgb(25, 100, 161);
     color: white;
-
-
 }
 
 
@@ -30,45 +26,38 @@
     color: black;
     padding: 10px;
     margin: 30px;
-    
-
 }
 
-
 .product {
-  min-width: 220px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 220px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .product img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .suggestion{
-    
     color: #1e4580;
     background-color: white;
-   
     padding: 10px;
 }
 
 .suggestion:hover{
-    
     color: #ffffff;
     background-color: rgb(7, 58, 159);
-   
     padding: 10px;
 }
+
 .highlight {
-  background-color: rgb(221, 244, 255);
-  
+    background-color: rgb(221, 244, 255);
 }
 
 
@@ -88,15 +77,13 @@
     align-items: center;
     justify-content: center;
     gap: 1em;
-
- 
-
 }
+
 .review {
-  display: none; 
-  border: 2px solid rgb(242, 246, 251); 
-  background-color: hsl(211, 66%, 91%);
-  padding: 10px;
+    display: none;
+    border: 2px solid rgb(242, 246, 251);
+    background-color: hsl(211, 66%, 91%);
+    padding: 10px;
 }
 
 .p_slider{
@@ -109,20 +96,20 @@
 }
 
 .slider{
-   overflow-x: auto;
- 
+    overflow-x: auto;
 }
+
 .pagination-controls {
     display: flex;
-    justify-content: center;  /* center the buttons */
+    justify-content: center;
     align-items: center;
-    gap: 10px;                /* space between buttons */
+    gap: 10px;
     margin-top: 20px;
     font-family: Arial, sans-serif;
 }
 
 .pagination-controls button {
-    background-color: #007BFF;  /* nice blue color */
+    background-color: #007BFF;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -133,8 +120,8 @@
 }
 
 .pagination-controls button:hover {
-    background-color: #0056b3;  /* darker blue on hover */
-    transform: scale(1.05);     /* small zoom effect */
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 #page_number {
@@ -144,36 +131,31 @@
     text-align: center;
 }
 
-
-
-
 @keyframes spin {
-from { transform: translateX(0); }
-to { transform: translateX(-100%); }
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
 }
+
 #searchBtn {
-    background-color: #007BFF; 
-    color: white;              
-    border: none;              
-    padding: 8px 16px;         
-    font-size: 16px;           
-    border-radius: 4px;       
-    cursor: pointer;           
-    transition: background 0.3s; 
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
     margin-bottom: 12px;
 }
 
-
 #searchBtn:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
 }
-
 
 #searchInput{
     width: 300px;
     height: 40px;
     margin-left: 30px;
-
 }
 
 .Hamburger_Menu {
@@ -181,10 +163,8 @@ to { transform: translateX(-100%); }
     width: 30px;
     height: 30px;
     position: relative;
-    cursor: pointer; 
-    margin-bottom: 0;
+    cursor: pointer;
 }
-
 
 .Hamburger_Menu::before,
 .Hamburger_Menu::after,
@@ -198,17 +178,14 @@ to { transform: translateX(-100%); }
     border-radius: 4px;
 }
 
-
 .Hamburger_Menu::before {
     top: 6px;
 }
-
 
 .Hamburger_Menu div {
     top: 50%;
     transform: translateY(-50%);
 }
-
 
 .Hamburger_Menu::after {
     bottom: 6px;
@@ -220,8 +197,6 @@ to { transform: translateX(-100%); }
     width: 500px;
     height: 100%;
     top: -1px;
-    
-    
     list-style: none;
     margin: 0;
 }
@@ -240,6 +215,37 @@ border-bottom: #000000;
  
 }
 
+.dark {
+    background-color: #000000;
+    color: white;
+}
+
+.dark .Main_Menu {
+    background-color: #1c1c1c;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.auth {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.auth a, .auth button {
+    cursor: pointer;
+}
+
+#cartCount {
+    background: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+}
 
 svg{
     width: 30px;
@@ -255,8 +261,26 @@ header{
 header .icon-cart{
     position: relative;
 }
+header .icon-heart{
+    position: relative;
+    margin-right: 5px;
+}
 
 header .icon-cart span{
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -20px;
+}
+
+header .icon-heart span{
     display: flex;
     width: 30px;
     height: 30px;
@@ -293,11 +317,19 @@ header .icon-cart span{
 .cartTab .btn button{
     background-color: deepskyblue;
     border: none;
-   
     font-weight: 500;
     cursor: pointer;
 }
 
+.cartTab .btn .close{
+    background-color: lightgray;
+}
+
+.cartItem{
+    margin: 10px;
+    padding: 10px;
+    background-color: floralwhite;
+}
 
 /* ******************** The End ****************************** */
 
@@ -306,42 +338,156 @@ header .icon-cart span{
     gap: 20px;
     margin-top: 70px;
     margin-left: 200px;
-
 }
+
 .product_info{
-    
     padding: 20px;
-    
 }
-.product_info:hover {
 
+.product_info:hover {
     background-color: rgb(225, 238, 249);
 }
 
 .product_info > .name {
-  font-size: 1.1rem;      
-  font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .product_info > .name:hover {
-  color: rgb(1, 94, 13);
+    color: rgb(1, 94, 13);
 }
 
 .product_info > .price {
-  font-size: 1rem;       
-  font-weight: 700;
-  color: #222;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #222;
 }
 
 .product_info > .category,
 .product-stock,
 .product-sku {
-  font-size: 0.85rem;     
-  color: #666;
+    font-size: 0.85rem;
+    color: #666;
 }
 
 .product_info > .description {
-  font-size: 0.9rem;      
-  color: #444;
-  line-height: 1.4;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+.cartInfo{
+    display: flex;
+    grid-template-columns: 100px 1fr 70px;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.cartButtons{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cartButtons button{
+    display: flex;
+    gap: 10px;
+    background-color:  rgb(44, 133, 197);
+}
+
+.cartButtons button:hover{
+    background-color: blue;
+    color: white;
+}
+
+.cartButtons .remove-item{
+    background-color: lightcoral;
+}
+
+.cartButtons .remove-item:hover{
+    background-color: red;
+    color: white;
+}
+
+.row{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25{
+    -ms-flex: 25%;
+    flex: 25%;
+}
+
+.col-50{
+    -ms-flex: 50%;
+    flex: 50%;
+}
+
+.col-75{
+    -ms-flex: 75%;
+    flex: 75%;
+}
+.col-25, .col-50, .col-75{
+    padding: 0 16px;
+}
+
+.container{
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type=text]{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container{
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btn{
+    background-color: rgb(44, 133, 197);
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover{
+    background-color: blue;
+}
+
+span.price{
+    float: right;
+    color: grey;
+}
+
+@media (max-width: 800px){
+    .row{
+        flex-direction: column-reverse;
+    }
+    .col-25{
+        margin-bottom: 20px;
+    }
 }
