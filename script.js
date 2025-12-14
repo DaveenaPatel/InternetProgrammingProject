@@ -35,5 +35,8 @@ $(document).click(function(e) {
     }
 });
 
+$(".checkout").click(function(){
+    window.location.href = "checkout.html";
+  })
 
 });

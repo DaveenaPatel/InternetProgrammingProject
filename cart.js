@@ -19,7 +19,6 @@ function getCookies(cname){
         return c.substring(name.length, c.length);
     }
     }
-    
 
     return "";
 }
@@ -48,12 +47,11 @@ function updateCartDisplay(){
             <div class="cart-item">
             <img src="${item.image}">
             <div class="cartInfo">
-                // <p>${item.name} - ${item.price} * "quantity" ${item.quantity}</p>
                 <h4>${item.name}</h4>
                 <p>Price: $${item.price}</p>
                 <p>Quantity: ${item.quantity}</p>
             </div>
-            <div class="cart-item-actions">
+            <div class="cartButtons">
                 <button class="decrease-quantity" data-id="${item.id}">-</button>
                 <button class="increase-quantity" data-id="${item.id}">+</button>
                 <button class="remove-item" data-id="${item.id}">Remove</button>    
@@ -62,6 +60,17 @@ function updateCartDisplay(){
     });
         
     $(".icon-cart span").text(totalQuantity);
+}
+
+function getTotalPrice(){
+    let cartItems = getCartItems();
+    let totalPrice = 0;
+
+    for(let i = 0; i < cartItems.length; i++){
+        totalPrice += cartItems[i].price * cartItems[i].quantity;
+    }
+
+    return totalPrice.toFixed(2);
 }
 
 $(document).ready(function(){
@@ -83,5 +92,42 @@ $(document).ready(function(){
     saveCartItems(cart);
     updateCartDisplay();
 });
+    updateCartDisplay();
+});
+
+$(document).on('click', '.increase-quantity', function(){
+    let id = $(this).data('id');
+    let cart = getCartItems();
+    let item = cart.find(item => item.id == id);
+
+    if(item){
+        item.quantity += 1;
+    }
+        saveCartItems(cart);
+        updateCartDisplay();
+});
+
+$(document).on('click', '.decrease-quantity', function(){
+    let id = $(this).data('id');
+    let cart = getCartItems();
+    let item = cart.find(item => item.id == id);
+
+    if(item){
+        item.quantity -= 1;
+        if(item.quantity <= 0){
+            cart = cart.filter(i => i.id != id);
+        }
+
+    }
+    saveCartItems(cart);
+        updateCartDisplay();
+});
+
+$(document).on('click', '.remove-item', function(){
+    let id = $(this).data('id');
+    let cart = getCartItems();
+    cart = cart.filter(i => i.id != id);
+
+    saveCartItems(cart);
     updateCartDisplay();
 });
