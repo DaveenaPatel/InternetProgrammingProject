@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>OurShop</title>
+
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="cart.js"></script>
 </head>
 
 <body>
 
-    <!-- Shopping Cart -->
+    <!-- ================= CART SIDEBAR ================= -->
     <div class="cartTab">
         <h1>Shopping Cart</h1>
         <div class="listCart"></div>
         <div class="btn">
             <button class="close">Close</button>
-            <button class="checkout">Checkout</button>
+            <a href="cartpage.html">
+                <button class="checkout">Checkout</button>
+            </a>
         </div>
     </div>
 
-    <!-- Main Menu -->
+    <!-- ================= MAIN MENU ================= -->
     <div class="Main_Menu">
+
         <header>
-            <div class="container">Website Name</div>
+            <div class="logo">OurShop</div>
+
             <div class="icon-cart">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="currentColor" viewBox="0 0 24 24">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd"
                         d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
                         clip-rule="evenodd" />
                 </svg>
-                <span>0</span>
+                <span id="cartCount">0</span>
             </div>
             <div class="icon-heart">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -43,29 +46,38 @@
             </div>
         </header>
 
-        <div class="leftSideMainMenu">
-            <!-- Hamburger Menu -->
-            <div class="Hamburger_Menu">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <!-- Main Menu Items -->
-            <ul>
-                <li id="home">Home</li>
-                <li>About</li>
-                <li>Contact</li>
-            </ul>
-
-            <!-- Search -->
-            <input id="searchInput" type="search" name="query" placeholder="Search...">
-            <button id="searchBtn" type="submit">Search</button>
-            <div id="searchResults"></div>
+        <!-- Hamburger -->
+        <div class="Hamburger_Menu">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+
+        <!-- Navigation -->
+        <ul>
+            <li id="home">Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+
+        <!-- Search -->
+        <input id="searchInput" type="search" placeholder="Search...">
+        <button id="searchBtn">Search</button>
+        <div id="searchResults"></div>
+
+        <!-- Auth -->
+        <div class="auth">
+            <a href="loginpage.html" id="loginBtn">Sign In</a>
+            <a href="registerpage.html" id="registerBtn">Sign Up</a>
+            <span id="accountBtn" style="display:none;">Account</span>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+        </div>
+
+        <!-- Dark mode -->
+        <button id="darkToggle">🌙</button>
     </div>
 
-    <!-- Dropdown Categories -->
+    <!-- ================= DROPDOWN CATEGORIES ================= -->
     <div class="dropdown_container">
         <div class="dropdown_menu">
             <ul>
@@ -83,40 +95,25 @@
         </div>
     </div>
 
-
-    <!-- HOME       -->
-
+    <!-- ================= HOME ================= -->
     <div class="slider">
+        <div class="home_automotive"></div>
+    </div>
 
-      <div class="home_automotive"></div>
-
-       
-
-</div>
-
-
-
-  
-
-
-    <!-- Products -->
+    <!-- ================= PRODUCTS ================= -->
     <div class="products"></div>
 
-    <!-- Pagination -->
+    <!-- ================= PAGINATION ================= -->
     <div class="pagination-controls">
         <button id="prev">Prev</button>
         <span id="page_number">1</span>
         <button id="next">Next</button>
     </div>
 
-    <!-- Extra content container -->
-    <div class="content_category"></div>
-
-    <!-- Scripts -->
+    <!-- ================= SCRIPTS ================= -->
     <script src="products.js"></script>
     <script src="script.js"></script>
     <script src="search.js"></script>
 
 </body>
-
 </html>

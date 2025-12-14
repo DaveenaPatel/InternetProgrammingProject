@@ -1,10 +1,11 @@
 let products = [];
 
+//Load products
 $.getJSON("data/products.json", function (data) {
     products = data;
 });
 
-
+//Search input
 $("#searchInput").on("keyup", function () {
     let q = $(this).val().toLowerCase();
     let $results = $("#searchResults");
@@ -19,16 +20,22 @@ $("#searchInput").on("keyup", function () {
         )
         .slice(0, 5)
         .forEach(p => {
+
+            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
             );
 
-            $results.append(`<div class="suggestion" data-id="${p.id}">${highlightedName}</div>`);
+            $results.append(`
+                <div class="suggestion" data-id="${p.id}">
+                    ${highlightedName}
+                </div>
+            `);
         });
 });
 
-
+//Show results
 function showResults(query) {
     let q = query.toLowerCase();
     let $products = $(".products");
@@ -40,6 +47,8 @@ function showResults(query) {
             p.category.toLowerCase().includes(q)
         )
         .forEach(p => {
+
+            //Highlight text
             let highlightedName = p.name.replace(
                 new RegExp(q, "gi"),
                 match => `<span class="highlight">${match}</span>`
@@ -58,20 +67,21 @@ function showResults(query) {
                         <p class="stock">In Stock: ${p.stock}</p>
                         <p class="sku">SKU: ${p.sku}</p>
                         <p class="description">${p.description}</p>
-                              <button 
-                                    class="addToCart" 
-                                    data-id="${p.id}" 
-                                    data-name="${p.name}" 
-                                    data-price="${p.price}">
-                                    Add to Cart
-                                </button>
+
+                        <button 
+                            class="addToCart" 
+                            data-id="${p.id}" 
+                            data-name="${p.name}" 
+                            data-price="${p.price}">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             `);
         });
 }
 
-
+//Suggestion click
 $(document).on("click", ".suggestion", function () {
     let name = $(this).text();
     showResults(name);
@@ -79,18 +89,19 @@ $(document).on("click", ".suggestion", function () {
     $("#searchInput").val(name);
 });
 
-
-$("#searchInput").on("keypress", function(e) {
+//Enter key
+$("#searchInput").on("keypress", function (e) {
     if (e.which === 13) {
         showResults($(this).val());
         $("#searchResults").empty();
     }
+});
 
-    $("#searchBtn").on("click", function () {
+//Search button
+$("#searchBtn").on("click", function () {
     let query = $("#searchInput").val();
     if (query.trim() !== "") {
         showResults(query);
         $("#searchResults").empty();
     }
-});
 });

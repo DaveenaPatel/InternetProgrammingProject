@@ -1,179 +1,111 @@
-
-
-$(document).ready(function() {
+$(document).ready(function () {
 
     const itemsPerPage = 10;
     let currentPage = 1;
+
     let home_Products = [];
     let reviews = [];
+    let allProducts = [];
 
-    function showPage(page){
+    // Pagination
+    function showPage(page) {
         let items = $(".product");
-        let start = (page -1) * itemsPerPage;
-        console.log("start : "+start)
+        let start = (page - 1) * itemsPerPage;
         let end = start + itemsPerPage;
+
         items.hide();
         items.slice(start, end).show();
         $("#page_number").text(page);
     }
 
-    //home stuff ***************************************************************
+    //
+    let automotive = [];
+    let garden = [];
+    let office = [];
+    let electronics = [];
+    let clothing = [];
+    let sports = [];
+    let toys = [];
+    let pet = [];
+    let beauty = [];
+    let homekitchen = [];
 
-let automotive = [];
-let garden = [];
-let office = [];
-let electronics = [];
-let clothing = [];
-let sports = [];
-let toys = [];
-let pet = [];
-let beauty = [];
-let homekitchen = [];
+    // Load products
+    $.getJSON("data/products.json", function (data) {
+        home_Products = data;
 
-$.getJSON("data/products.json", function(data){
-    home_Products = data;
-    console.log("All products loaded:", home_Products);
+        automotive = data.filter(p => p.category === "Automotive");
+        garden = data.filter(p => p.category === "Garden & Outdoors");
+        office = data.filter(p => p.category === "Office Supplies");
+        electronics = data.filter(p => p.category === "Electronics");
+        clothing = data.filter(p => p.category === "Clothing");
+        sports = data.filter(p => p.category === "Sports & Outdoors");
+        toys = data.filter(p => p.category === "Toys & Games");
+        pet = data.filter(p => p.category === "Pet Supplies");
+        beauty = data.filter(p => p.category === "Beauty & Personal Care");
+        homekitchen = data.filter(p => p.category === "Home & Kitchen");
+    });
 
-
-    $.getJSON("data/reviews.json", function(data){
+    // Load reviews
+    $.getJSON("data/reviews.json", function (data) {
         reviews = data;
-    })
+    });
 
-    // Filter products into categories
-    displayAutomotive();
-    displayGarden();
-    displayOffice();
-    displayElectronics();
-    displayClothing();
-    displaySports();
-    displayToys();
-    displayPet();
-    displayBeauty();
-    displayHomeKitchen();
+    // Home
+    $("#home").click(function () {
+        $(".home_automotive").empty();
+        $(".products").empty();
 
-    console.log("Automotive:", automotive);
-    console.log("Garden & Outdoors:", garden);
-    console.log("Office Supplies:", office);
-    console.log("Electronics:", electronics);
-    console.log("Clothing:", clothing);
-    console.log("Sports & Outdoors:", sports);
-    console.log("Toys & Games:", toys);
-    console.log("Pet Supplies:", pet);
-    console.log("Beauty & Personal Care:", beauty);
-    console.log("Home & Kitchen:", homekitchen);
-});
+        automotive.forEach(p => {
+            $(".home_automotive").append(`
+                <div class="p">
+                    <img src="${p.image}?v=${Math.random()}" style="width:200px;height:200px;">
+                    <h3>${p.name}</h3>
+                    <p>Category: ${p.category}</p>
+                    <p>Price: $${p.price}</p>
+                    <button 
+                        class="addToCart" 
+                        data-id="${p.id}" 
+                        data-name="${p.name}" 
+                        data-price="${p.price}" 
+                        data-image="${p.image}">
+                        Add to Cart
+                    </button>
+                </div>
+            `);
+        });
+    });
 
-// Functions to filter each category
-function displayAutomotive() {
-    automotive = home_Products.filter(p => p.category === "Automotive");
-}
-function displayGarden() {
-    garden = home_Products.filter(p => p.category === "Garden & Outdoors");
-}
-function displayOffice() {
-    office = home_Products.filter(p => p.category === "Office Supplies");
-}
-function displayElectronics() {
-    electronics = home_Products.filter(p => p.category === "Electronics");
-}
-function displayClothing() {
-    clothing = home_Products.filter(p => p.category === "Clothing");
-}
-function displaySports() {
-    sports = home_Products.filter(p => p.category === "Sports & Outdoors");
-}
-function displayToys() {
-    toys = home_Products.filter(p => p.category === "Toys & Games");
-}
-function displayPet() {
-    pet = home_Products.filter(p => p.category === "Pet Supplies");
-}
-function displayBeauty() {
-    beauty = home_Products.filter(p => p.category === "Beauty & Personal Care");
-}
-function displayHomeKitchen() {
-    homekitchen = home_Products.filter(p => p.category === "Home & Kitchen");
-}
+    // Category load
+    function loadCategory(file) {
+        currentPage = 1;
+        $("#page_number").text(currentPage);
+        $(".products").empty();
+        $(".home_automotive").empty();
 
-// Example: show automotive products
-$("#home").click(function(){
-    $(".home_automotive").empty(); 
-    $(".products").empty(); // clear previous slider content
-
-    for (let i = 0; i < automotive.length; i++) {
-        $(".home_automotive").append(`
-            <div class="p">
-                <img src="${automotive[i].image}?v=${Math.random()}" alt="${automotive[i].name}" style="width:200px;height:200px;">
-                <h3>${automotive[i].name}</h3>
-                <p>Category: ${automotive[i].category}</p>
-                <p>Price: $${automotive[i].price}</p>
-                         <button 
-                                    class="addToCart" 
-                                    data-id="${automotive[i].id}" 
-                                    data-name="${automotive[i].name}" 
-                                    data-price="${automotive[i].price}">
-                                    Add to Cart
-                                </button>
-            </div>
-        `);
-    }
-});
-
-
-
-//end of home stuff  *************************************888
-
-
-
-
-
-
-
-
-
-function loadCategory(file) {
-    $(".home_automotive").empty();
-
-    currentPage = 1;
-    $("#page_number").text(currentPage);
-
-    $.getJSON(`data/${file}.json`, function(products) {
-
-        $.getJSON("data/reviews.json", function(reviewsData) {
-
+        $.getJSON(`data/${file}.json`, function (products) {
             allProducts = products;
-            $(".products").empty();
 
-            for (let i = 0; i < products.length; i++) {
-                let product = products[i];
+            products.forEach(product => {
 
-                // find reviews for this product
-                let productReviews = null;
-                for (let j = 0; j < reviewsData.length; j++) {
-                    if (reviewsData[j].product_id == product.id) {
-                        productReviews = reviewsData[j].reviews;
-                        break;
-                    }
-                }
-
+                let productReviews = reviews.find(r => r.product_id == product.id);
                 let reviewsHTML = "";
+
                 if (productReviews) {
-                    for (let k = 0; k < productReviews.length; k++) {
+                    productReviews.reviews.forEach(r => {
                         reviewsHTML += `
                             <div class="review">
-                                <strong>${productReviews[k].user}</strong>
-                                (${productReviews[k].rating}/5)
-                                <p>${productReviews[k].comment}</p>
+                                <strong>${r.user}</strong> (${r.rating}/5)
+                                <p>${r.comment}</p>
                             </div>
                         `;
-                     
-                    }
+                    });
                 }
 
                 $(".products").append(`
                     <div class="product">
                         <div class="image">
-                            <img src="${product.image}?v=${Math.random()}" />
+                            <img src="${product.image}?v=${Math.random()}">
                         </div>
 
                         <div class="product_info">
@@ -184,13 +116,15 @@ function loadCategory(file) {
                             <p class="description">${product.description}</p>
                             <p class="stock">in Stock : ${product.stock}</p>
                             <p class="sku">${product.sku}</p>
+
                             <button 
-                                    class="addToCart" 
-                                    data-id="${product.id}" 
-                                    data-name="${product.name}" 
-                                    data-price="${product.price}">
-                                    Add to Cart
-                                </button>
+                                class="addToCart" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-image="${product.image}">
+                                Add to Cart
+                            </button>
 
                             <button class="userReviews">Comments</button>
                         </div>
@@ -200,23 +134,15 @@ function loadCategory(file) {
                         </div>
                     </div>
                 `);
-            }
+            });
 
             showPage(currentPage);
-           
         });
-    });
 
-    $(".dropdown_menu").hide();
-}
+        $(".dropdown_menu").hide();
+    }
 
     // Category buttons
-  
-
-
-
-
-
     $("#automotive_list").click(() => loadCategory("Automotive"));
     $("#clothing_list").click(() => loadCategory("Clothing"));
     $("#beautyAndPersonalCare_list").click(() => loadCategory("Beauty & Personal Care"));
@@ -229,28 +155,31 @@ function loadCategory(file) {
     $("#electronics_list").click(() => loadCategory("Electronics"));
 
     // Pagination
+    $("#next").click(function () {
+        let maxPage = Math.ceil($(".product").length / itemsPerPage);
+        if (currentPage < maxPage) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    });
 
+    $("#prev").click(function () {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    });
 
-$("#next").click(function (){
-    let total = $(".product").length;
-    console.log(total);
-    let maxPage = Math.ceil(total/itemsPerPage);
-    console.log(maxPage);
-    if(currentPage < maxPage){
-        currentPage++;
-        showPage(currentPage);
-    }
-
-});
-
-$("#prev").click(function (){
-    if(currentPage > 1){
-        currentPage--;
-        showPage(currentPage);
-    
-    }
-});
-
-
+    // Add to cart
+    $(document).on("click", ".addToCart", function () {
+        if (window.addToCart) {
+            window.addToCart({
+                id: $(this).data("id"),
+                name: $(this).data("name"),
+                price: $(this).data("price"),
+                image: $(this).data("image")
+            });
+        }
+    });
 
 });
