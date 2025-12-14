@@ -61,11 +61,19 @@ function showResults(query) {
                     </div>
                     <div class="product_info">
                         <p class="name">${highlightedName}</p>
+                        <p class="id">${p.id}</p>
                         <p class="category">Category: ${p.category}</p>
                         <p class="price">Price: ${p.price}</p>
                         <p class="stock">In Stock: ${p.stock}</p>
                         <p class="sku">SKU: ${p.sku}</p>
                         <p class="description">${p.description}</p>
+                              <button 
+                                    class="addToCart" 
+                                    data-id="${p.id}" 
+                                    data-name="${p.name}" 
+                                    data-price="${p.price}">
+                                    Add to Cart
+                                </button>
                     </div>
                 </div>
             `);
@@ -86,4 +94,16 @@ $("#searchInput").on("keypress", function (e) {
         showResults($(this).val());
         $("#searchResults").empty();
     }
+<<<<<<< HEAD
 });
+=======
+
+    $("#searchBtn").on("click", function () {
+    let query = $("#searchInput").val();
+    if (query.trim() !== "") {
+        showResults(query);
+        $("#searchResults").empty();
+    }
+});
+});
+>>>>>>> 2c62eb6f15b3d045c791be69423cc1aee158f615

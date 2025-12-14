@@ -30,10 +30,9 @@ $(document).ready(function () {
     let beauty = [];
     let homekitchen = [];
 
-    // Load all products + reviews (HOME + CATEGORY SUPPORT)
+    // Load products
     $.getJSON("data/products.json", function (data) {
         home_Products = data;
-        console.log("All products loaded:", home_Products);
 
         automotive = data.filter(p => p.category === "Automotive");
         garden = data.filter(p => p.category === "Garden & Outdoors");
@@ -45,13 +44,14 @@ $(document).ready(function () {
         pet = data.filter(p => p.category === "Pet Supplies");
         beauty = data.filter(p => p.category === "Beauty & Personal Care");
         homekitchen = data.filter(p => p.category === "Home & Kitchen");
-
-        $.getJSON("data/reviews.json", function (data) {
-            reviews = data;
-        });
     });
 
-    // Example: show automotive products
+    // Load reviews
+    $.getJSON("data/reviews.json", function (data) {
+        reviews = data;
+    });
+
+    // Home
     $("#home").click(function () {
         $(".home_automotive").empty();
         $(".products").empty();
@@ -59,16 +59,24 @@ $(document).ready(function () {
         automotive.forEach(p => {
             $(".home_automotive").append(`
                 <div class="p">
-                    <img src="${p.image}?v=${Math.random()}" alt="${p.name}" style="width:200px;height:200px;">
+                    <img src="${p.image}?v=${Math.random()}" style="width:200px;height:200px;">
                     <h3>${p.name}</h3>
                     <p>Category: ${p.category}</p>
                     <p>Price: $${p.price}</p>
+                    <button 
+                        class="addToCart" 
+                        data-id="${p.id}" 
+                        data-name="${p.name}" 
+                        data-price="${p.price}" 
+                        data-image="${p.image}">
+                        Add to Cart
+                    </button>
                 </div>
             `);
         });
     });
 
-    //Category loading
+    // Category load
     function loadCategory(file) {
         currentPage = 1;
         $("#page_number").text(currentPage);
@@ -78,60 +86,57 @@ $(document).ready(function () {
         $.getJSON(`data/${file}.json`, function (products) {
             allProducts = products;
 
-            $.getJSON("data/reviews.json", function (reviewsData) {
+            products.forEach(product => {
 
-                products.forEach(product => {
+                let productReviews = reviews.find(r => r.product_id == product.id);
+                let reviewsHTML = "";
 
-                    let productReviews = reviewsData.find(r => r.product_id == product.id);
-                    let reviewsHTML = "";
-
-                    if (productReviews) {
-                        productReviews.reviews.forEach(r => {
-                            reviewsHTML += `
-                                <div class="review">
-                                    <strong>${r.user}</strong> (${r.rating}/5)
-                                    <p>${r.comment}</p>
-                                </div>
-                            `;
-                        });
-                    }
-
-                    $(".products").append(`
-                        <div class="product">
-                            <div class="image">
-                                <img src="${product.image}?v=${Math.random()}">
+                if (productReviews) {
+                    productReviews.reviews.forEach(r => {
+                        reviewsHTML += `
+                            <div class="review">
+                                <strong>${r.user}</strong> (${r.rating}/5)
+                                <p>${r.comment}</p>
                             </div>
+                        `;
+                    });
+                }
 
-                            <div class="product_info">
-                                <p class="name">${product.name}</p>
-                                <p class="price">price : ${product.price}</p>
-                                <p class="id">id : ${product.id}</p>
-                                <p class="category">category : ${product.category}</p>
-                                <p class="description">${product.description}</p>
-                                <p class="stock">in Stock : ${product.stock}</p>
-                                <p class="sku">${product.sku}</p>
-
-                                <button 
-                                    class="addToCart" 
-                                    data-id="${product.id}" 
-                                    data-name="${product.name}" 
-                                    data-price="${product.price}" 
-                                    data-image="${product.image}">
-                                    Add to Cart
-                                </button>
-
-                                <button class="userReviews">Comments</button>
-                            </div>
-
-                            <div class="reviews">
-                                ${reviewsHTML}
-                            </div>
+                $(".products").append(`
+                    <div class="product">
+                        <div class="image">
+                            <img src="${product.image}?v=${Math.random()}">
                         </div>
-                    `);
-                });
 
-                showPage(currentPage);
+                        <div class="product_info">
+                            <p class="name">${product.name}</p>
+                            <p class="price">price : ${product.price}</p>
+                            <p class="id">id : ${product.id}</p>
+                            <p class="category">category : ${product.category}</p>
+                            <p class="description">${product.description}</p>
+                            <p class="stock">in Stock : ${product.stock}</p>
+                            <p class="sku">${product.sku}</p>
+
+                            <button 
+                                class="addToCart" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-image="${product.image}">
+                                Add to Cart
+                            </button>
+
+                            <button class="userReviews">Comments</button>
+                        </div>
+
+                        <div class="reviews">
+                            ${reviewsHTML}
+                        </div>
+                    </div>
+                `);
             });
+
+            showPage(currentPage);
         });
 
         $(".dropdown_menu").hide();
@@ -149,7 +154,7 @@ $(document).ready(function () {
     $("#gardenAndOutdoors_list").click(() => loadCategory("Garden & Outdoors"));
     $("#electronics_list").click(() => loadCategory("Electronics"));
 
-    // ================= PAGINATION =================
+    // Pagination
     $("#next").click(function () {
         let maxPage = Math.ceil($(".product").length / itemsPerPage);
         if (currentPage < maxPage) {
@@ -165,7 +170,7 @@ $(document).ready(function () {
         }
     });
 
-    //Add to cart
+    // Add to cart
     $(document).on("click", ".addToCart", function () {
         if (window.addToCart) {
             window.addToCart({
