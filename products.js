@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    
 
     const itemsPerPage = 10;
     let currentPage = 1;
@@ -8,15 +7,13 @@ $(document).ready(function () {
     let reviews = [];
     let allProducts = [];
     let products_details = [];
-    var selectedProductId = getSelectedProductIdFromURL(); // Function to get selected product ID from URL
+
+    var selectedProductId = getSelectedProductIdFromURL();
 
     function getSelectedProductIdFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('productId');
-    }   
-
-
-    
+        return urlParams.get("productId");
+    }
 
     // Pagination
     function showPage(page) {
@@ -29,203 +26,137 @@ $(document).ready(function () {
         $("#page_number").text(page);
     }
 
-
-
-
-    
-
     //
-   let automotive = [];
-let garden = [];
-let office = [];
-let electronics = [];
-let clothing = [];
-let sports = [];
-let toys = [];
-let pet = [];
-let beauty = [];
-let homekitchen = [];
+    let automotive = [];
+    let garden = [];
+    let office = [];
+    let electronics = [];
+    let clothing = [];
+    let sports = [];
+    let toys = [];
+    let pet = [];
+    let beauty = [];
+    let homekitchen = [];
 
-    $.getJSON("data/product-reviews.json", function (data) {
-        let products = data.products;
+    // Functions to filter each category
+    function displayAutomotive() { automotive = home_Products.filter(p => p.category === "Automotive"); }
+    function displayGarden() { garden = home_Products.filter(p => p.category === "Garden & Outdoors"); }
+    function displayOffice() { office = home_Products.filter(p => p.category === "Office Supplies"); }
+    function displayElectronics() { electronics = home_Products.filter(p => p.category === "Electronics"); }
+    function displayClothing() { clothing = home_Products.filter(p => p.category === "Clothing"); }
+    function displaySports() { sports = home_Products.filter(p => p.category === "Sports & Outdoors"); }
+    function displayToys() { toys = home_Products.filter(p => p.category === "Toys & Games"); }
+    function displayPet() { pet = home_Products.filter(p => p.category === "Pet Supplies"); }
+    function displayBeauty() { beauty = home_Products.filter(p => p.category === "Beauty & Personal Care"); }
+    function displayHomeKitchen() { homekitchen = home_Products.filter(p => p.category === "Home & Kitchen"); }
 
-        // Find the product that matches the selected ID
-        let product = products.find(p => p.productId === selectedProductId);
+    // Example: show products
+    function displayAllCategories() {
+        $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
 
-        if (product) {
-            // Display product info
-            console.log("product id: " + product.productId);
-            console.log("product name: " + product.productName);
-            console.log("average rating: " + product.averageRating);
-            console.log("total reviews: " + product.totalReviews);
+        function displayCategory(categoryArray, containerClass) {
+            for (let i = 0; i < categoryArray.length; i++) {
+                $(containerClass).append(`
+                    <div class="p">
+                        <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
+                        <h3>${categoryArray[i].name}</h3>
+                        <p>Category: ${categoryArray[i].category}</p>
+                        <p>Price: $${categoryArray[i].price}</p>
 
-            // Display its reviews
-            product.reviews.forEach(function (review) {
-                console.log("review id: " + review.reviewId);
-                console.log("user name: " + review.userName);
-                console.log("rating: " + review.rating);
-                console.log("title: " + review.title);
-                console.log("content: " + review.content);
-                console.log("date: " + review.date);
-                console.log("verified purchase: " + review.verifiedPurchase);
-                console.log("helpful votes: " + review.helpfulVotes);
-                console.log("images: " + review.images);
-            });
-        } else {
-            console.log("Product not found.");
+                        <button 
+                            class="addToCart" 
+                            data-id="${categoryArray[i].id}" 
+                            data-name="${categoryArray[i].name}" 
+                            data-price="${categoryArray[i].price}"
+                            data-image="${categoryArray[i].image}">
+                            Add to Cart
+                        </button>
+
+                        <button 
+                            class="addToWishList" 
+                            data-id="${categoryArray[i].id}" 
+                            data-name="${categoryArray[i].name}" 
+                            data-price="${categoryArray[i].price}"
+                            data-image="${categoryArray[i].image}">
+                            Add to WishList
+                        </button>
+
+                        <button 
+                            class="viewDetails" 
+                            data-id="${categoryArray[i].id}">
+                            View Details
+                        </button>
+                    </div>
+                `);
+            }
         }
-    });
 
-
-
-$.getJSON("data/products.json", function(data){
-    home_Products = data;
-    console.log("All products loaded:", home_Products);
-
-
-    $.getJSON("data/reviews.json", function(data){
-        reviews = data;
-    })
-
-    // Filter products into categories
-    displayAutomotive();
-    displayGarden();
-    displayOffice();
-    displayElectronics();
-    displayClothing();
-    displaySports();
-    displayToys();
-    displayPet();
-    displayBeauty();
-    displayHomeKitchen();
-
-    console.log("Automotive:", automotive);
-    console.log("Garden & Outdoors:", garden);
-    console.log("Office Supplies:", office);
-    console.log("Electronics:", electronics);
-    console.log("Clothing:", clothing);
-    console.log("Sports & Outdoors:", sports);
-    console.log("Toys & Games:", toys);
-    console.log("Pet Supplies:", pet);
-    console.log("Beauty & Personal Care:", beauty);
-    console.log("Home & Kitchen:", homekitchen);
-});
-
-// Functions to filter each category
-function displayAutomotive() {
-    automotive = home_Products.filter(p => p.category === "Automotive");
-}
-function displayGarden() {
-    garden = home_Products.filter(p => p.category === "Garden & Outdoors");
-}
-function displayOffice() {
-    office = home_Products.filter(p => p.category === "Office Supplies");
-}
-function displayElectronics() {
-    electronics = home_Products.filter(p => p.category === "Electronics");
-}
-function displayClothing() {
-    clothing = home_Products.filter(p => p.category === "Clothing");
-}
-function displaySports() {
-    sports = home_Products.filter(p => p.category === "Sports & Outdoors");
-}
-function displayToys() {
-    toys = home_Products.filter(p => p.category === "Toys & Games");
-}
-function displayPet() {
-    pet = home_Products.filter(p => p.category === "Pet Supplies");
-}
-function displayBeauty() {
-    beauty = home_Products.filter(p => p.category === "Beauty & Personal Care");
-}
-function displayHomeKitchen() {
-    homekitchen = home_Products.filter(p => p.category === "Home & Kitchen");
-}
-
-// Example: show  products
-function displayAllCategories() {
-    $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
-
-    function displayCategory(categoryArray, containerClass) {
-        for (let i = 0; i < categoryArray.length; i++) {
-            $(containerClass).append(`
-                <div class="p">
-                    <img src="${categoryArray[i].image}?v=${Math.random()}" alt="${categoryArray[i].name}" style="width:200px;height:200px;">
-                    <h3>${categoryArray[i].name}</h3>
-                    <p>Category: ${categoryArray[i].category}</p>
-                    <p>Price: $${categoryArray[i].price}</p>
-                    <button 
-                        class="addToCart" 
-                        data-id="${categoryArray[i].id}" 
-                        data-name="${categoryArray[i].name}" 
-                        data-price="${categoryArray[i].price}">
-                        Add to Cart
-                    </button>
-                    <button 
-                                class="addToWishList" 
-                                data-id="${categoryArray[i].id}" 
-                                data-name="${categoryArray[i].name}" 
-                                data-price="${categoryArray[i].price}">
-                                
-                                Add to WishList
-                    </button>
-                   
-                    <button 
-                        class="viewDetails" 
-                        data-id="${categoryArray[i].id}">
-                        View Details
-                    </button>
-                    
-                </div>
-            `);
-        }
+        displayCategory(automotive, ".home_automotive");
+        displayCategory(garden, ".home_garden");
+        displayCategory(office, ".home_office");
+        displayCategory(electronics, ".home_electronics");
+        displayCategory(clothing, ".home_clothing");
+        displayCategory(sports, ".home_sports");
+        displayCategory(toys, ".home_toys");
+        displayCategory(pet, ".home_pet");
+        displayCategory(beauty, ".home_beauty");
+        displayCategory(homekitchen, ".home_homekitchen");
     }
 
-    // Display each category
-    displayCategory(automotive, ".home_automotive");
-    displayCategory(garden, ".home_garden");
-    displayCategory(office, ".home_office");
-    displayCategory(electronics, ".home_electronics");
-    displayCategory(clothing, ".home_clothing");
-    displayCategory(sports, ".home_sports");
-    displayCategory(toys, ".home_toys");
-    displayCategory(pet, ".home_pet");
-    displayCategory(beauty, ".home_beauty");
-    displayCategory(homekitchen, ".home_homekitchen");
-}
+    // Event delegation MUST be outside, once
+    $(document).on("click", ".viewDetails", function () {
+        const id = $(this).data("id");
+        $(".one_product").empty();
+        showProductDetails(id);
+    });
 
-// Event delegation MUST be outside, once
-$(document).on('click', '.viewDetails', function() {
-    const id = $(this).data('id');
-    $(".one_product").empty(); // Clear previous details
-    showProductDetails(id);    // Show details of clicked product
-});
+    // Load all data FIRST, then auto-load Home
+    $.getJSON("data/products.json", function (data) {
+        home_Products = data;
+        console.log("All products loaded:", home_Products);
 
+        displayAutomotive();
+        displayGarden();
+        displayOffice();
+        displayElectronics();
+        displayClothing();
+        displaySports();
+        displayToys();
+        displayPet();
+        displayBeauty();
+        displayHomeKitchen();
 
-  // Display products on page load
-    $("#home").click(displayAllCategories); // Also display when #home is clicked
-   
+        $.getJSON("data/reviews.json", function (data) {
+            reviews = data || [];
+        }).always(function () {
+            // Auto display Home AFTER products are ready
+            if ($("#home").length) {
+                $("#home").trigger("click");
+            } else {
+                displayAllCategories();
+            }
+        });
+    });
 
-
+    // Display when #home is clicked
+    $("#home").click(displayAllCategories);
 
     // Category load
     function loadCategory(file) {
-         $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
+        $(".home_automotive, .home_garden, .home_office, .home_electronics, .home_clothing, .home_sports, .home_toys, .home_pet, .home_beauty, .home_homekitchen, .products").empty();
+
         currentPage = 1;
         $("#page_number").text(currentPage);
-        $(".products").empty();
-        $(".home_automotive").empty();
 
         $.getJSON(`data/${file}.json`, function (products) {
-            allProducts = products;
+            allProducts = products || [];
+            $(".products").empty();
 
-            products.forEach(product => {
-
-                let productReviews = reviews.find(r => r.product_id == product.id);
+            allProducts.forEach(product => {
+                let productReviews = Array.isArray(reviews) ? reviews.find(r => r.product_id == product.id) : null;
                 let reviewsHTML = "";
 
-                if (productReviews) {
+                if (productReviews && productReviews.reviews) {
                     productReviews.reviews.forEach(r => {
                         reviewsHTML += `
                             <div class="review">
@@ -314,78 +245,82 @@ $(document).on('click', '.viewDetails', function() {
     });
 
     // Add to cart
-$(document).on("click", ".addToCart", function () {
-    const product = {
-        id: $(this).data("id"),
-        name: $(this).data("name"),
-        price: parseFloat($(this).data("price")),
-        image: $(this).data("image")
-    };
-    console.log("Trying to add:", product);
-    if (!product.id || !product.name) {
-        console.error("Product data missing!");
-        return;
-    }
-    window.addToCart(product);
-});
-// Add to WishList
-$(document).on("click", ".addToWishList", function () {
-    const product = {
-        id: $(this).data("id"),
-        name: $(this).data("name"),
-        price: parseFloat($(this).data("price")),
-        image: $(this).data("image") 
-    };
+    $(document).on("click", ".addToCart", function () {
+        const product = {
+            id: $(this).data("id"),
+            name: $(this).data("name"),
+            price: $(this).data("price"),
+            image: $(this).data("image")
+        };
 
-    if (!product.id || !product.name) {
-        console.error("Product data missing for wishlist!");
-        return;
-    }
+        if (!product.id || !product.name) {
+            console.error("Product data missing!");
+            return;
+        }
 
-    if (window.addToWishList) {
-        window.addToWishList(product);
-        console.log("Added to wishlist:", product);
-    } else {
-        console.warn("addToWishList function not found!");
-    }
-});
-
-      window.onload = function() {
-    displayAllCategories();
-};
-
-function showProductDetails(selectedProductId) {
-    $.getJSON("data/product-reviews.json", function (data) {
-        products_details = data.products;
-
-        // Find the product that matches the selected ID
-        let product = products.find(p => p.productId === selectedProductId);
-
-        if (product) {
-            // Display product info
-            console.log("product id: " + product.productId);
-            console.log("product name: " + product.productName);
-            console.log("average rating: " + product.averageRating);
-            console.log("total reviews: " + product.totalReviews);
-
-            // Display its reviews
-            product.reviews.forEach(function (review) {
-                console.log("review id: " + review.reviewId);
-                console.log("user name: " + review.userName);
-                console.log("rating: " + review.rating);
-                console.log("title: " + review.title);
-                console.log("content: " + review.content);
-                console.log("date: " + review.date);
-                console.log("verified purchase: " + review.verifiedPurchase);
-                console.log("helpful votes: " + review.helpfulVotes);
-                console.log("images: " + review.images);
-            });
+        if (window.addToCart) {
+            window.addToCart(product);
         } else {
-            console.log("Product not found.");
+            console.warn("addToCart function not found!");
         }
     });
-}
 
+    // Add to WishList
+    $(document).on("click", ".addToWishList", function () {
+        const product = {
+            id: $(this).data("id"),
+            name: $(this).data("name"),
+            price: $(this).data("price"),
+            image: $(this).data("image")
+        };
 
+        if (!product.id || !product.name) {
+            console.error("Product data missing for wishlist!");
+            return;
+        }
+
+        if (window.addToWishList) {
+            window.addToWishList(product);
+            console.log("Added to wishlist:", product);
+        } else {
+            console.warn("addToWishList function not found!");
+        }
+    });
+
+    function showProductDetails(selectedId) {
+        $.getJSON("data/product-reviews.json", function (data) {
+            products_details = (data && data.products) ? data.products : [];
+
+            let product = products_details.find(p => String(p.productId) === String(selectedId));
+
+            if (product) {
+                console.log("product id: " + product.productId);
+                console.log("product name: " + product.productName);
+                console.log("average rating: " + product.averageRating);
+                console.log("total reviews: " + product.totalReviews);
+
+                if (product.reviews) {
+                    product.reviews.forEach(function (review) {
+                        console.log("review id: " + review.reviewId);
+                        console.log("user name: " + review.userName);
+                        console.log("rating: " + review.rating);
+                        console.log("title: " + review.title);
+                        console.log("content: " + review.content);
+                        console.log("date: " + review.date);
+                        console.log("verified purchase: " + review.verifiedPurchase);
+                        console.log("helpful votes: " + review.helpfulVotes);
+                        console.log("images: " + review.images);
+                    });
+                }
+            } else {
+                console.log("Product not found.");
+            }
+        });
+    }
+
+    // If you ever land on a details page with ?productId=...
+    if (selectedProductId) {
+        showProductDetails(selectedProductId);
+    }
 
 });

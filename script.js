@@ -4,14 +4,7 @@ $(document).ready(function () {
     $(".dropdown_menu").hide();
 
     // Hover behavior
-    $(".Hamburger_Menu, .dropdown_menu").hover(
-        function () {
-            $(".dropdown_menu").show();
-        },
-        function () {
-            $(".dropdown_menu").hide();
-        }
-    );
+
 
     // Click behavior
     $(".Hamburger_Menu").click(function (e) {
@@ -22,6 +15,7 @@ $(document).ready(function () {
     $(document).click(function () {
         $(".dropdown_menu").hide();
     });
+
 
     //Cart Sidebar
     $(".cartTab").hide();
@@ -68,22 +62,26 @@ $(document).ready(function () {
     }
 
 $(".checkout").click(function(){
-    window.location.href = "checkout.html";
+    if (!isLoggedIn()) {
+        window.location.href = "loginpage.html";
+    } else {
+        window.location.href = "checkout.html";
+    }
   })
-    function getCookie(name) {
-        const cname = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i].trim();
-            if (c.indexOf(cname) === 0) return c.substring(cname.length);
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+        if (cookies[i].startsWith(name + "=")) {
+            return cookies[i].substring(name.length + 1);
         }
-        return "";
     }
+    return "";
+}
 
-    function isLoggedIn() {
-        return getCookie("token") !== "";
-    }
+function isLoggedIn() {
+    return getCookie("token") !== "";
+}
+
 
     window.setCookie = setCookie;
     window.getCookie = getCookie;
