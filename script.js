@@ -133,7 +133,7 @@ $("#registerForm").submit(function (e) {
         method: "POST",
         url: "https://reqres.in/api/register",
         headers: {
-            "x-api-key": "demo-key"
+            "x-api-key": "reqres_ae34759172c341bca30434782cd1c9c6"
         },
         data: {
             email: email,
