@@ -60,8 +60,6 @@ function updateWishListDisplay(){
             `;
     });
     $(".icon-heart span").text(totalQuantity);
-
-    
 }
 
 $(document).ready(function(){

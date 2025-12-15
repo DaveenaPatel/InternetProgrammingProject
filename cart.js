@@ -48,7 +48,6 @@ function updateCartDisplay(){
             <div class="cart-item">
             <img src="${item.image}">
             <div class="cartInfo">
-                // <p>${item.name} - ${item.price} * "quantity" ${item.quantity}</p>
                 <h4>${item.name}</h4>
                 <p>Price: $${item.price}</p>
                 <p>Quantity: ${item.quantity}</p>
