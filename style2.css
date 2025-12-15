@@ -87,3 +87,9 @@ header{
     font-weight: bold;
 }
 
+header > a {
+    font-size: 20px;
+    text-align: center;
+    color: darkblue;
+}
+

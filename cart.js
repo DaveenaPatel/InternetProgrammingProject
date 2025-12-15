@@ -112,7 +112,7 @@ $(document).on('click', '.decrease-quantity', function(){
 
     }
     saveCartItems(cart);
-        updateCartDisplay();
+    updateCartDisplay();
 });
 
 $(document).on('click', '.remove-item', function(){
