@@ -79,7 +79,7 @@ span.price{
 }
 
 header{
-    background-color: rgb(44, 133, 197);
+    background-color:rgb(25, 100, 161);
     color: white;
     padding: 15px;
     font-size: 25px;
@@ -87,9 +87,8 @@ header{
     font-weight: bold;
 }
 
-header > a {
-    font-size: 20px;
+h2, p, h3, a {
     text-align: center;
-    color: darkblue;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
