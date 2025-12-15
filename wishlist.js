@@ -91,6 +91,6 @@ $(document).on('click', '.remove-item', function(){
     let wishListItems = getWishListItems();
     wishListItems = wishListItems.filter(i => i.id != id);
 
-    saveWishListItems(wishList);
+    saveWishListItems(wishListItems);
     updateWishListDisplay();
 });
