@@ -89,7 +89,7 @@ $(document).ready(function(){
 $(document).on('click', '.remove-item', function(){
     let id = $(this).data('id');
     let wishListItems = getWishListItems();
-    wishListItems = wishListItems.filter(i => i.id != id);
+    wishListItems = wishListItems.filter(item => item.id != id);
 
     saveWishListItems(wishListItems);
     updateWishListDisplay();

@@ -326,9 +326,12 @@ header .icon-heart span{
     cursor: pointer;
 }
 
-/* .cartTab .btn .close, .cartTab .btn .checkout{
-    background-color: lightgray;
-} */
+.checkout{
+    background-color: deepskyblue;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
 
 .cartItem{
     margin: 10px;
