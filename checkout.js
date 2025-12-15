@@ -36,6 +36,28 @@ function totalPrice(){
     return totalPrice.toFixed(2);
 }
 
+function validateCheckoutForm(){
+    let fullName = $("#fullName").val().trim();
+    let email = $("#email").val().trim();
+    let address = $("#address").val().trim();
+    let city = $("#city").val().trim();
+    let province = $("#province").val().trim();
+    let postalCode = $("#postalCode").val().trim();
+    let cardName = $("#cardName").val().trim();
+    let cardNumber = $("#cardNumber").val().trim();
+    let expiryMonth = $("#expiryMonth").val().trim();
+    let expiryYear = $("#expiryYear").val().trim();    
+    let cvv = $("#cvv").val().trim();
+
+    if(fullName == "" || email == "" || address == "" || city == "" || province == "" || postalCode == "" || cardName == "" || cardNumber == "" || expiryMonth == "" || expiryYear == "" || cvv == ""){
+        alert("Please fill in all required fields.");
+        return false;
+    } else{
+        return true;
+    }
+
+}  
+
 $(document).ready(function () {
     let cartItems = getCartItems();
     let totalCost = 0;
@@ -56,8 +78,13 @@ $(document).ready(function () {
     $(".checkout-total").text(`$${totalCost.toFixed(2)}`);
 
 
-    $(".placeOrder").click(function () {
-    window.location.href = "confirmationpage.html";
+    $(".placeOrder").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(validateCheckoutForm()){
+            window.location.href = "confirmationpage.html";
+        } 
     });
 });
 
