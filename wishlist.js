@@ -49,13 +49,13 @@ function updateWishListDisplay(){
             <div class="wishList-item">
             <img src="${item.image}">
             <div class="wishListInfo">
-                // <p>${item.name} - ${item.price} * "quantity" ${item.quantity}</p>
                 <h4>${item.name}</h4>
                 <p>Price: $${item.price}</p>
                 <p>Quantity: ${item.quantity}</p>
             </div>
             <div class="wishList-item-actions">
                 <button class="remove-item" data-id="${item.id}">Remove</button>    
+            </div>
             </div>
             `;
     });
