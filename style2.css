@@ -73,12 +73,17 @@ span.price{
     color: grey;
 }
 
-@media (max-width: 800px){
-    .row{
-        flex-direction: column-reverse;
-    }
-    .col-25{
-        margin-bottom: 20px;
-    }
+.placeOrder{
+    background-color: lightskyblue;
+    
+}
+
+header{
+    background-color: rgb(44, 133, 197);
+    color: white;
+    padding: 15px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
 }
 

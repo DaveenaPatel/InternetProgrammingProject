@@ -326,14 +326,19 @@ header .icon-heart span{
     cursor: pointer;
 }
 
-.cartTab .btn .close, .cartTab .btn .checkout{
+/* .cartTab .btn .close, .cartTab .btn .checkout{
     background-color: lightgray;
-}
+} */
 
 .cartItem{
     margin: 10px;
     padding: 10px;
     background-color: floralwhite;
+}
+
+.listCart{
+    overflow-y: auto;
+    padding: 20px;
 }
 
 /* WishList */
@@ -364,8 +369,9 @@ header .icon-heart span{
     cursor: pointer;
 }
 
-.WishListTab .btn .close{
-    background-color: lightgray;
+.listWishList{
+    overflow-y: auto;
+    padding: 20px;
 }
 
 /* ******************** The End ****************************** */
@@ -446,85 +452,3 @@ header .icon-heart span{
     background-color: red;
     color: white;
 }
-
-/* .row{
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin: 0 -16px;
-}
-
-.col-25{
-    -ms-flex: 25%;
-    flex: 25%;
-}
-
-.col-50{
-    -ms-flex: 50%;
-    flex: 50%;
-}
-
-.col-75{
-    -ms-flex: 75%;
-    flex: 75%;
-}
-.col-25, .col-50, .col-75{
-    padding: 0 16px;
-}
-
-.container{
-    background-color: #f2f2f2;
-    padding: 5px 20px 15px 20px;
-    border: 1px solid lightgrey;
-    border-radius: 3px;
-}
-
-input[type=text]{
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-label{
-    margin-bottom: 10px;
-    display: block;
-}
-
-.icon-container{
-    margin-bottom: 20px;
-    padding: 7px 0;
-    font-size: 24px;
-}
-
-.btn{
-    background-color: rgb(44, 133, 197);
-    color: white;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    width: 100%;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 17px;
-}
-
-.btn:hover{
-    background-color: blue;
-}
-
-span.price{
-    float: right;
-    color: grey;
-}
-
-@media (max-width: 800px){
-    .row{
-        flex-direction: column-reverse;
-    }
-    .col-25{
-        margin-bottom: 20px;
-    }
-} */
