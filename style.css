@@ -447,7 +447,7 @@ header .icon-heart span{
     color: white;
 }
 
-.row{
+/* .row{
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -527,4 +527,4 @@ span.price{
     .col-25{
         margin-bottom: 20px;
     }
-}
+} */

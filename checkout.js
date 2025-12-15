@@ -25,7 +25,7 @@ function getCartItems(){
     }
 }
 
-function loadCartItems(){//add
+function totalPrice(){
     let cartItems = getCartItems();
     let totalPrice = 0;
 
@@ -35,3 +35,29 @@ function loadCartItems(){//add
 
     return totalPrice.toFixed(2);
 }
+
+$(document).ready(function () {
+    let cartItems = getCartItems();
+    let totalCost = 0;
+
+    cartItems.forEach(item => {
+        let cost = item.price * item.quantity;
+        totalCost += cost;
+
+        $(".cart-summary").append(`
+            <div class="cart-item">
+            <p>${item.name}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>$${(totalCost).toFixed(2)}</p>
+            </div>
+            `);
+    });
+
+    $(".checkout-total").text(`$${totalCost.toFixed(2)}`);
+
+
+    $(".placeOrder").click(function () {
+    window.location.href = "confirmationpage.html";
+    });
+});
+
